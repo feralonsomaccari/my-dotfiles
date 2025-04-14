@@ -27,6 +27,9 @@ vim.opt.incsearch = true  -- Enable incremental search
 vim.opt.cursorline = true -- Highlight the current line
 vim.o.cursorlineopt = "number"
 
+vim.g.loaded_netrwPlugin = 1 -- Disable netrw
+vim.g.loaded_netrw = 1 -- Disable netrw
+
 
 --[[
 ##################################################
