@@ -1,5 +1,5 @@
 # Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
 [ -f ~/dotfiles/.zshrc_secrets ] && source ~/dotfiles/.zshrc_secrets
 
@@ -84,8 +84,15 @@ alias sprintview="jira sprint list --current -a$(jira me)"
 alias vimdiff='nvim -d'
 
 # Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
 export NOTES_DIR=/Users/feralonsomaccari/Projects/notes
 NOTES_DIR=/Users/feralonsomaccari/Projects/Notes
 
+plugins=(zsh-autosuggestions fast-syntax-highlighting)
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+autoload -U compinit; compinit
+source ~/.fzf-tab/fzf-tab.zsh
