@@ -93,9 +93,6 @@ vim.api.nvim_set_keymap('v', '<C-k>', '5k', { noremap = true, silent = true })
 -- Map Ctrl+C in visual mode to yank to clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
--- Reveal in Tree
-vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>:Neotree focus<CR>', {})
-
 -- Delete words with CTRL + backspace
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
 

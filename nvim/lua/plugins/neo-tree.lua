@@ -3,7 +3,8 @@ return {
   branch = "v3.x",
   dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
   config = function()
-    vim.keymap.set("n", "<S-b>", ":Neotree toggle<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<C-e>", ":Neotree toggle<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<D-e>", ":Neotree toggle<CR>", { noremap = true, silent = true })
 
     require("nvim-web-devicons").setup {
       color_icons = false,
@@ -15,7 +16,8 @@ return {
       filesystem = {
         filtered_items = {
           visible = true
-        }
+        },
+        hijack_netrw_behavior = "disabled",
       },
       close_if_last_window = true,
       source_selector = {
@@ -70,6 +72,10 @@ return {
             error = "e",
           },
         },
+        file_size = {
+          enabled = false,
+        },
+
       },
       buffers = {
         follow_current_file = {
@@ -79,6 +85,7 @@ return {
       window = {
         width = 36,
         border = "none",
+        position = "float",
         title = "",
         mappings = {
           ["A"]          = "git_add_all",
