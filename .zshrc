@@ -1,14 +1,10 @@
 # Amazon Q pre block. Keep at the top of this file.
-# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 
 [ -f ~/dotfiles/.zshrc_secrets ] && source ~/dotfiles/.zshrc_secrets
 
 # Stops last login message
 touch ~/.hushlogin
-
-# NVM (move nvm loading above instant prompt)
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -19,8 +15,12 @@ fi
 
 # Homebrew
 export PATH=/opt/homebrew/bin:$PATH
-export PATH=/usr/local/share/npm/bin:$PATH
+export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/Cellar/mongodb-community@4.4/4.4.29/bin:$PATH"
+
+# NVM (move nvm loading above instant prompt)
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -82,11 +82,11 @@ bindkey '^H' backward-kill-word
 bindkey '^J' history-search-forward
 bindkey '^K' history-search-backward
 
+
 # Amazon Q post block. Keep at the bottom of this file.
-# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 
 export NOTES_DIR=/Users/feralonsomaccari/Projects/notes
-NOTES_DIR=/Users/feralonsomaccari/Projects/Notes
 
 plugins=(zsh-autosuggestions)
 

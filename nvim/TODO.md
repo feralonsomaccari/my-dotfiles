@@ -15,3 +15,4 @@
 13) Add color to filename in Telescope to easy read the name of it
 14) Set up a key map to jump to file preview in Telescope
 15) ~~Add jira-cli support~~
+16) Be able to use ctrl+j and ctrl+k inside telescope for quick navigation

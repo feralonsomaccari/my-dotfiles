@@ -1,13 +1,14 @@
 return {
-  'Mofiqul/vscode.nvim',
+  'sainnhe/gruvbox-material',
   config = function()
-    require('vscode').setup({
+    --[[   require('vscode').setup({
       style = 'dark',            -- Choose between two styles: "dark" or "light"
       transparent = false,       -- Enable/Disable transparency
       italic_comments = true,    -- Enable italic comments
       disable_nvimtree_bg = true -- Disable nvim-tree background color
     })
-    vim.cmd('colorscheme vscode')
+ ]]
+    vim.cmd('colorscheme gruvbox-material')
 
     local mainColor = vim.api.nvim_get_hl_by_name('Normal', true).background or "purple"
     local mainLightColor = '#C0C0C0'
@@ -31,6 +32,8 @@ return {
     vim.api.nvim_set_hl(0, "@comment", { link = "Comment" })
 
     -- Neo-tree colors
+    vim.api.nvim_set_hl(0, 'NeoTreeNormal', { bg = mainColor })
+    vim.api.nvim_set_hl(0, 'NeoTreeEndOfBuffer', { bg = mainColor })
     vim.api.nvim_set_hl(0, 'NeoTreeCursorLine', { bg = cursorColor })
     vim.api.nvim_set_hl(0, 'NeoTreeGitIgnored', { fg = grayColor })
     vim.api.nvim_set_hl(0, 'NeoTreeIndentMarker', { bg = 'NONE', fg = grayColor })

@@ -2,10 +2,24 @@
 bindings = [
   { key = "C", mods = "Command", chars = "\u0003" },
   { key = "Back", mods = "Control", chars = "\u0017" },
-  { key =  "Tab", mods = "Control", action = "SelectNextTab" },
-  { key =  "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
+  { key = "Tab", mods = "Control", action = "SelectNextTab" },
+  { key = "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
+  { key = "q", mods = "Control", action = "ToggleBlockSelection" },
+  { key = "D", mods = "Control", action = "None" },
+  { key = "Space", mods = "Control", action = "ToggleViMode" },
+
 ]
 
 [font]
-  size = 18.0
+  size = 16.0
+
+[window]
+  # decorations = "None"
+#startup_mode = "Maximized"
+
+[terminal]
+  shell = { program = "/bin/zsh", args = ["-l"] }
+
+[cursor]
+  vi_mode_style = "Block"
 

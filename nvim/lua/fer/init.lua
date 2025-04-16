@@ -108,6 +108,7 @@ vim.api.nvim_set_keymap('n', 'dc', 'dd', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
 
 -- Normal mode mapping for <C-a> to select everything in the file
+vim.api.nvim_set_keymap('n', '<D-a>', 'ggVG', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 
 -- Explicitly map <Esc> to ensure it works
@@ -152,6 +153,10 @@ vim.api.nvim_set_keymap('n', 'V', '0v$', { noremap = true, silent = true })
 -- Modify shift+G to also put the cursor in last character in viusual mode and normal mode
 vim.api.nvim_set_keymap('x', 'G', 'G$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'G', 'G$', { noremap = true, silent = true })
+
+-- Column mode to ctrl+q
+vim.api.nvim_set_keymap('v', '<C-q>', '<C-w><C-v>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<D-q>', 'ggVG', { noremap = true, silent = true })
 
 -- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
 vim.keymap.set("n", "`", function()
