@@ -70,7 +70,7 @@ search_projects() {
 # Aliases
 alias fp='search_projects'
 alias c='clear'
-alias v='nvim .'
+alias v='nvim'
 alias nvimconf='cd ~/dotfiles/nvim'
 alias nvimconfig='cd ~/dotfiles/nvim'
 alias ipconfig="ipconfig getifaddr en0"
