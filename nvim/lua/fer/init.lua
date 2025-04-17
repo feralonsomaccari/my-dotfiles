@@ -155,6 +155,9 @@ vim.api.nvim_set_keymap('n', 'G', 'G$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-q>', '<C-w><C-v>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<D-q>', 'ggVG', { noremap = true, silent = true })
 
+-- Improves Esc to also remove highlighting on search
+vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>:noh<CR>', { noremap = true, silent = true })
+
 -- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
 vim.keymap.set("n", "`", function()
   local word = vim.fn.expand("<cword>")

@@ -5,6 +5,7 @@ return {
   config = function()
     vim.keymap.set("n", "<C-e>", ":Neotree toggle<CR>", { noremap = true, silent = true })
     vim.keymap.set("n", "<D-e>", ":Neotree toggle<CR>", { noremap = true, silent = true })
+    vim.keymap.set('n', '<leader>fr', ':Neotree reveal<CR>:Neotree focus<CR>', {})
 
     require("nvim-web-devicons").setup {
       color_icons = false,
