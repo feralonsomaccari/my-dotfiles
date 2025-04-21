@@ -26,8 +26,8 @@ return {
     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = grayColor })
 
     -- Highlight for Floats Windows
-    vim.api.nvim_set_hl(0, 'FloatBorder', { fg = variableColor, bg = mainColor })
-    vim.api.nvim_set_hl(0, 'NormalFloat', { fg = "NONE", bg = "NONE" })
+    vim.api.nvim_set_hl(0, 'FloatBorder', { link = "TelescopeBorder" })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { fg = "NONE", bg = mainColor })
     -- vim.api.nvim_set_hl(0, 'FloatTitle', {fg = "NONE", bg = "NONE"})
 
     -- File name in Lualine
@@ -55,6 +55,11 @@ return {
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = mainLightColor }) -- White icons
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = mainLightColor }) -- White folder names
     vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = mainLightColor })      -- Change all file icon colors
+
+
+    -- vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = variableColor })
+
+    
   end
 
 }
