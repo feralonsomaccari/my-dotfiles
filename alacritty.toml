@@ -1,10 +1,13 @@
 [keyboard]
 bindings = [
   { key = "C", mods = "Command", chars = "\u0003" },
+  { key = "C", mods = "Control", action = "None" },
+  { key = "C", mods = "Control", action = "Copy" },
   { key = "Back", mods = "Control", chars = "\u0017" },
   { key = "Tab", mods = "Control", action = "SelectNextTab" },
   { key = "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
   { key = "q", mods = "Control", action = "ToggleBlockSelection" },
+
   { key = "D", mods = "Control", action = "None" },
   { key = "Space", mods = "Control", action = "ToggleViMode" },
 
@@ -14,6 +17,7 @@ bindings = [
   size = 16.0
 
 [window]
+option_as_alt = "OnlyLeft"
   # decorations = "None"
 #startup_mode = "Maximized"
 

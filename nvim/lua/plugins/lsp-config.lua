@@ -10,7 +10,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "clangd" },
+        ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "clangd", 'go', 'gopls' },
       })
     end,
   },
@@ -19,36 +19,22 @@ return {
     lazy = false,
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       local lspconfig = require("lspconfig")
 
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.cssls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.clangd.setup({
-        capabilities = capabilities,
-      })
+      lspconfig.ts_ls.setup({ capabilities = capabilities })
+      lspconfig.html.setup({ capabilities = capabilities })
+      lspconfig.cssls.setup({ capabilities = capabilities })
+      lspconfig.lua_ls.setup({ capabilities = capabilities })
+      lspconfig.clangd.setup({ capabilities = capabilities })
+      lspconfig.gopls.setup({ capabilities = capabilities })
 
-      --[[  -- Disable diagnostics virtual text (the "W", "E" icons)
       vim.diagnostic.config({
-        virtual_text = false, -- Disables virtual text icons
-        signs = false,        -- Disables the gutter signs (W, E, etc.)
-        update_in_insert = true,
-        underline = true,
-        severity_sort = true,
+        virtual_text = true, -- Show errors and warnings as virtual text next to code
+        signs = true,      -- Show signs (icons) in the gutter
+        update_in_insert = true, -- Update diagnostics while typing
+        underline = true,  -- Underline errors and warnings
+        severity_sort = true, -- Sort diagnostics by severity
       })
-
-
- ]]
 
       local hover = vim.lsp.buf.hover
       vim.lsp.buf.hover = function()

@@ -17,6 +17,7 @@ fi
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/Cellar/mongodb-community@4.4/4.4.29/bin:$PATH"
+# export PATH=$PATH:$(go env GOPATH)/bin
 
 # NVM (move nvm loading above instant prompt)
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
