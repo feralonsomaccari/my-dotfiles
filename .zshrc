@@ -65,6 +65,9 @@ search_projects() {
   
   if [ -n "$project" ]; then
     cd "$project" || return 1
+    if [ -f ".nvmrc" ]; then
+      nvm use
+    fi
   fi
 }
 
@@ -75,10 +78,12 @@ alias v='nvim'
 alias nvimconf='cd ~/dotfiles/nvim'
 alias nvimconfig='cd ~/dotfiles/nvim'
 alias ipconfig="ipconfig getifaddr en0"
-alias sprintview="jira sprint list --current -a$(jira me)"
+alias jira="jira sprint list --current -a$(jira me)"
 alias vimdiff='nvim -d'
 alias openrep='fertools openrep'
 alias openpr='fertools openpr'
+alias openpaas='fertools openpaas'
+alias openjira='fertools openjira'
 
 # Keybindings
 bindkey '^H' backward-kill-word
