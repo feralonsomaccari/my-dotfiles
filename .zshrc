@@ -77,6 +77,8 @@ alias nvimconfig='cd ~/dotfiles/nvim'
 alias ipconfig="ipconfig getifaddr en0"
 alias sprintview="jira sprint list --current -a$(jira me)"
 alias vimdiff='nvim -d'
+alias openrep='fertools openrep'
+alias openpr='fertools openpr'
 
 # Keybindings
 bindkey '^H' backward-kill-word
