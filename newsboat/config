@@ -46,3 +46,8 @@ highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
 
 # Other
+macro y set browser "mpv --ytdl-format='bestvideo[height<=480]+bestaudio' ${url}" ; open-in-browser
+macro a set browser "mpv --no-video --ytdl-format='bestaudio' ${url}" ; open-in-browser
+macro b set browser "open ${url}" ; open-in-browser
+
+
