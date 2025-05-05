@@ -15,7 +15,7 @@ vim.opt.wrap = false
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.termguicolors = true
-vim.o.signcolumn = "yes" -- keep "space" for git sign lines
+vim.o.signcolumn = "yes"                -- keep "space" for git sign lines
 vim.o.ignorecase = true                 -- Ignore case in searches
 vim.o.smartcase = true                  -- Use case sensitivity when uppercase letters are used in the search pattern
 vim.opt.clipboard:append('unnamedplus') -- Enable system clipboard support
@@ -28,7 +28,7 @@ vim.opt.cursorline = true -- Highlight the current line
 vim.o.cursorlineopt = "number"
 
 vim.g.loaded_netrwPlugin = 1 -- Disable netrw
-vim.g.loaded_netrw = 1 -- Disable netrw
+vim.g.loaded_netrw = 1       -- Disable netrw
 
 
 --[[
@@ -286,15 +286,20 @@ function FetchJiraIssue()
   local branch = vim.fn.system('git rev-parse --abbrev-ref HEAD')
   local issue = branch:gsub("\n", "")
 
-  vim.fn.jobstart({ 'jira', 'issue', 'view', issue, '--comments', '20' }, {
-    stdout_buffered = true,
-    on_stdout = function(_, data)
-      vim.g.jira_content = table.concat(data, "\n")
-    end,
-    on_stderr = function(_, data)
-      -- print("Error fetching Jira issue: " .. table.concat(data, "\n"))
-    end
-  })
+  -- Check if 'jira' command is available
+  if vim.fn.executable('jira') == 1 then
+    vim.fn.jobstart({ 'jira', 'issue', 'view', issue, '--comments', '20' }, {
+      stdout_buffered = true,
+      on_stdout = function(_, data)
+        vim.g.jira_content = table.concat(data, "\n")
+      end,
+      on_stderr = function(_, data)
+        -- print("Error fetching Jira issue: " .. table.concat(data, "\n"))
+      end
+    })
+  else
+    print("jira-cli is not installed.")
+  end
 end
 
 vim.cmd([[autocmd VimEnter * lua FetchJiraIssue()]])
