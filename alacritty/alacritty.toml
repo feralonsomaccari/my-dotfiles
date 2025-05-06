@@ -4,12 +4,19 @@ bindings = [
   { key = "C", mods = "Control", action = "None" },
   { key = "C", mods = "Control", action = "Copy" },
   { key = "Back", mods = "Control", chars = "\u0017" },
-  { key = "Tab", mods = "Control", action = "SelectNextTab" },
-  { key = "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
   { key = "q", mods = "Control", action = "ToggleBlockSelection" },
 
   { key = "D", mods = "Control", action = "None" },
   { key = "Space", mods = "Control", action = "ToggleViMode" },
+
+  { key = "Tab", mods = "Control", action = "SelectNextTab" },
+  { key = "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
+
+  { key = "W", mods = "Control", action = "Quit" },
+  { key = "Q", mods = "Option", action = "SelectTab1" },
+  { key = "W", mods = "Command", action = "SelectTab2" },
+  { key = "E", mods = "Command", action = "SelectTab3" },
+  { key = "R", mods = "Command", action = "SelectTab4" },
 
 ]
 
