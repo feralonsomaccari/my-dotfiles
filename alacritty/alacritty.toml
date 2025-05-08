@@ -3,20 +3,36 @@ bindings = [
   { key = "C", mods = "Command", chars = "\u0003" },
   { key = "C", mods = "Control", action = "None" },
   { key = "C", mods = "Control", action = "Copy" },
-  { key = "Back", mods = "Control", chars = "\u0017" },
-  { key = "q", mods = "Control", action = "ToggleBlockSelection" },
-
   { key = "D", mods = "Control", action = "None" },
-  { key = "Space", mods = "Control", action = "ToggleViMode" },
+  { key = "Back", mods = "Control", chars = "\u0017" },
+  { key = "Back", mods = "Command", chars = "\u0017" },
+  { key = "Backspace", mods = "Control", chars = "\u0008" },
+  { key = "Backspace", mods = "Command", chars = "\u0008" },
+  { key = "N", mods = "Command", action = "None" },
+  { key = "T", mods = "Command", action = "None" },
+  { key = "T", mods = "Control", chars = "\u0014" },
+  { key = "W", mods = "Control", chars = "\u0017" },
 
-  { key = "Tab", mods = "Control", action = "SelectNextTab" },
-  { key = "Tab", mods = "Control|Shift", action = "SelectPreviousTab" },
+  { key = "Slash", mods = "Control", chars = "\u001f" },
+  { key = "Slash", mods = "Command", chars = "\u001f" },
 
-  { key = "W", mods = "Control", action = "Quit" },
-  { key = "Q", mods = "Option", action = "SelectTab1" },
-  { key = "W", mods = "Command", action = "SelectTab2" },
-  { key = "E", mods = "Command", action = "SelectTab3" },
-  { key = "R", mods = "Command", action = "SelectTab4" },
+  # Tabs and Tmux
+  { key = "Tab", mods = "Control", chars = "\u001by" },
+  { key = "Tab", mods = "Control|Shift", chars = "\u001bu" },
+  { key = "Q", mods = "Alt", chars = "\u001bq" },
+  { key = "W", mods = "Alt", chars = "\u001bw" },
+  { key = "E", mods = "Alt", chars = "\u001be" },
+  { key = "R", mods = "Alt", chars = "\u001br" },
+  { key = "A", mods = "Alt", chars = "\u001ba" },
+  { key = "S", mods = "Alt", chars = "\u001bs" },
+  { key = "D", mods = "Alt", chars = "\u001bd" },
+  { key = "F13", mods = "Command", chars = "\u001bq" },
+  { key = "W", mods = "Command", chars = "\u001bw" },
+  { key = "E", mods = "Command", chars = "\u001be" },
+  { key = "R", mods = "Command", chars = "\u001br" },
+  { key = "A", mods = "Command", chars = "\u001ba" },
+  { key = "S", mods = "Command", chars = "\u001bs" },
+  { key = "D", mods = "Command", chars = "\u001bd" },
 
 ]
 
@@ -24,12 +40,13 @@ bindings = [
   size = 16.0
 
 [window]
-option_as_alt = "OnlyLeft"
-  # decorations = "None"
-#startup_mode = "Maximized"
+  option_as_alt = "Both"
+  startup_mode = "Maximized"
+  decorations = "Buttonless"
 
 [terminal]
   shell = { program = "/bin/zsh", args = ["-l"] }
 
 [cursor]
   vi_mode_style = "Block"
+

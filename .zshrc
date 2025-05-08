@@ -100,6 +100,11 @@ plugins=(zsh-autosuggestions)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
+
+if [ -t 1 ] && [ -z "$TMUX" ]; then
+  tmux new-session \; new-window \; new-window \; new-window
+fi
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 autoload -U compinit; compinit
 source ~/.fzf-tab/fzf-tab.zsh
