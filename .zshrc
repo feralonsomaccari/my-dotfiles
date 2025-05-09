@@ -13,15 +13,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# NVM (move nvm loading above instant prompt)
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 # Homebrew
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/Cellar/mongodb-community@4.4/4.4.29/bin:$PATH"
 # export PATH=$PATH:$(go env GOPATH)/bin
-
-# NVM (move nvm loading above instant prompt)
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -101,9 +101,9 @@ plugins=(zsh-autosuggestions)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
-
 if [ -t 1 ] && [ -z "$TMUX" ]; then
-  tmux new-session \; new-window \; new-window \; new-window
+  PATH="$PATH:/foo"
+  tmux new-session \; new-window \; new-window \; new-window\; new-window\; new-window
 fi
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 autoload -U compinit; compinit

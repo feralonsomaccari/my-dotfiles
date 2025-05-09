@@ -122,6 +122,8 @@ vim.api.nvim_set_keymap('n', '<C-z>', '<Nop>', { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', 'gg', 'gg0', { noremap = true, silent = true })
 
 -- Chabge CTRL + [ and ] as history
+vim.api.nvim_set_keymap('n', '<C-h>', ':lua GoToPrevBuffer()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', ':lua GoToPrevBuffer()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-[>', ':lua GoToPrevBuffer()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-]>', ':lua GoToNextBuffer()<CR>', { noremap = true, silent = true })
 

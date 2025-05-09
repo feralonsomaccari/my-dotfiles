@@ -8,13 +8,18 @@ bindings = [
   { key = "Back", mods = "Command", chars = "\u0017" },
   { key = "Backspace", mods = "Control", chars = "\u0008" },
   { key = "Backspace", mods = "Command", chars = "\u0008" },
-  { key = "N", mods = "Command", action = "None" },
+  # { key = "N", mods = "Command", action = "None" },
   { key = "T", mods = "Command", action = "None" },
   { key = "T", mods = "Control", chars = "\u0014" },
   { key = "W", mods = "Control", chars = "\u0017" },
 
   { key = "Slash", mods = "Control", chars = "\u001f" },
   { key = "Slash", mods = "Command", chars = "\u001f" },
+
+  { key = "[", mods = "Command", chars = "\u0008" },
+  { key = "[", mods = "Control", chars = "\u0008" },
+  { key = "]", mods = "Command", chars = "\u0012" },
+
 
   # Tabs and Tmux
   { key = "Tab", mods = "Control", chars = "\u001by" },
@@ -28,12 +33,12 @@ bindings = [
   { key = "D", mods = "Alt", chars = "\u001bd" },
   { key = "F13", mods = "Command", chars = "\u001bq" },
   { key = "W", mods = "Command", chars = "\u001bw" },
+
   { key = "E", mods = "Command", chars = "\u001be" },
   { key = "R", mods = "Command", chars = "\u001br" },
   { key = "A", mods = "Command", chars = "\u001ba" },
   { key = "S", mods = "Command", chars = "\u001bs" },
   { key = "D", mods = "Command", chars = "\u001bd" },
-
 ]
 
 [font]
