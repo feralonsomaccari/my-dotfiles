@@ -31,9 +31,18 @@ else
   ln -sf "$(realpath "$(pwd)/mpv")" ~/.config/mpv
   echo "Symlinked mpv config"
 
-  # Install P10K conf
+  # INSTALL p10k CONF
   ln -sf "$(realpath "$(pwd)/.p10k.zsh")" ~/.p10k.zsh
   echo "Symlinked p10k config"
+
+  # INSTALL tmux CONF
+  ln -sf "$(realpath "$(pwd)/tmux/.tmux.conf")" ~/.tmux.conf
+  echo "Symlinked tmux config"
+
+  touch .zshrc_secrets
+  echo "Env file created please add envs"
+
+
 
 fi
 
