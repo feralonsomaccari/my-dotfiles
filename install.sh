@@ -30,5 +30,10 @@ else
   mkdir -p ~/.config/mpv/
   ln -sf "$(realpath "$(pwd)/mpv")" ~/.config/mpv
   echo "Symlinked mpv config"
+
+  # Install P10K conf
+  ln -sf "$(realpath "$(pwd)/.p10k.zsh")" ~/.p10k.zsh
+  echo "Symlinked p10k config"
+
 fi
 
