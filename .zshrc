@@ -6,10 +6,6 @@
 # Stops last login message
 touch ~/.hushlogin
 
-# Prompt format
-# PS1='%n@%m %~$ '
-# PS1="%n@%~ > "
-
 # Disable shared history between tabs
 unsetopt share_history
 
@@ -67,7 +63,6 @@ search_projects() {
 
 # Aliases
 alias fp='search_projects'
-alias c='clear'
 alias v='nvim'
 alias nvimconf='cd ~/dotfiles/nvim'
 alias nvimconfig='cd ~/dotfiles/nvim'
@@ -93,10 +88,15 @@ plugins=(zsh-autosuggestions)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Tmux Initialization
+Tmux Initialization
 if [ -t 1 ] && [ -z "$TMUX" ]; then
   tmux new-session \; new-window \; new-window \; new-window\; new-window\; new-window
 fi
+
+# if [ -t 1 ] && [ -z "$TMUX" ]; then
+#   ~/dotfiles/tmux/start_tmux.sh
+#   exit
+# fi
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 autoload -U compinit; compinit
