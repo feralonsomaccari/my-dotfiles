@@ -12,7 +12,7 @@ that are unnecessary for mobile.
 
 - IDE: Nvim
 - Terminal: Alacritty
-- Shell: Zsh
+- Shell: Zsh (with p10k)
 
 ### Miscellaneous
 
