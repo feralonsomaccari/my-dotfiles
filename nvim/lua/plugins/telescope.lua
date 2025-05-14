@@ -33,6 +33,10 @@ return {
     config = function()
       require("telescope").setup({
         defaults = {
+          layout_config = {
+            preview_cutoff = 1, -- ensures preview is always shown
+          },
+          path_display = { "smart" },
           mappings = {
             n = {
               ["<C-i>"] = focus_preview,
@@ -53,6 +57,7 @@ return {
         },
         preview = {
           filesize_limit = 0.5555,
+          treesitter = true,
         },
         pickers = {
           find_files = {
