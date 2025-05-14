@@ -1,27 +1,28 @@
 [keyboard]
 bindings = [
   { key = "C", mods = "Command", chars = "\u0003" },
-  { key = "C", mods = "Control", action = "None" },
-  { key = "C", mods = "Control", action = "Copy" },
-  { key = "D", mods = "Control", action = "None" },
+
+  # Backspace Key Bindings
   { key = "Back", mods = "Control", chars = "\u0017" },
   { key = "Back", mods = "Command", chars = "\u0017" },
   { key = "Backspace", mods = "Control", chars = "\u0008" },
   { key = "Backspace", mods = "Command", chars = "\u0008" },
-  # { key = "N", mods = "Command", action = "None" },
+
+  # Tab/Window Control
   { key = "T", mods = "Command", action = "None" },
   { key = "T", mods = "Control", chars = "\u0014" },
   { key = "W", mods = "Control", chars = "\u0017" },
 
+  # Slash Key Bindings
   { key = "Slash", mods = "Control", chars = "\u001f" },
   { key = "Slash", mods = "Command", chars = "\u001f" },
 
+  # Square Brackets
   { key = "[", mods = "Command", chars = "\u0008" },
   { key = "[", mods = "Control", chars = "\u0008" },
   { key = "]", mods = "Command", chars = "\u0012" },
 
-
-  # Tabs and Tmux
+  # Tmux / Alt Tab Bindings
   { key = "Tab", mods = "Control", chars = "\u001by" },
   { key = "Tab", mods = "Control|Shift", chars = "\u001bu" },
   { key = "Q", mods = "Alt", chars = "\u001bq" },
@@ -31,15 +32,15 @@ bindings = [
   { key = "A", mods = "Alt", chars = "\u001ba" },
   { key = "S", mods = "Alt", chars = "\u001bs" },
   { key = "D", mods = "Alt", chars = "\u001bd" },
+
+  # Command Bindings for Tmux Navigation
   { key = "F13", mods = "Command", chars = "\u001bq" },
   { key = "W", mods = "Command", chars = "\u001bw" },
-
   { key = "E", mods = "Command", chars = "\u001be" },
   { key = "R", mods = "Command", chars = "\u001br" },
   { key = "A", mods = "Command", chars = "\u001ba" },
   { key = "S", mods = "Command", chars = "\u001bs" },
-  { key = "D", mods = "Command", chars = "\u001bd" },
-]
+  { key = "D", mods = "Command", chars = "\u001bd" },]
 
 [font]
   size = 16.0

@@ -88,15 +88,16 @@ plugins=(zsh-autosuggestions)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-Tmux Initialization
+#Tmux Initialization
 if [ -t 1 ] && [ -z "$TMUX" ]; then
-  tmux new-session \; new-window \; new-window \; new-window\; new-window\; new-window
+  tmux new-session -n Q \; \
+    new-window -n W \; \
+    new-window -n E \; \
+    new-window -n A \; \
+    new-window -n S \; \
+    new-window -n D \; \
+    select-window -t 0
 fi
-
-# if [ -t 1 ] && [ -z "$TMUX" ]; then
-#   ~/dotfiles/tmux/start_tmux.sh
-#   exit
-# fi
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 autoload -U compinit; compinit
