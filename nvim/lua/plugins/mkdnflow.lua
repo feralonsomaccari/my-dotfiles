@@ -29,11 +29,11 @@ return {
 
       vim.cmd("edit ~/Documents/notes/README.md")
 
-      
+
       local floating_buffers = { buf } -- Start by tracking the first buffer
       local floating_window = win
 
-    
+
       vim.api.nvim_buf_set_keymap(buf, 'n', '<Esc>', ':bd!<CR>', { noremap = true, silent = true })
 
       -- Function to safely close all buffers related to mkdnflow when the floating window is closed
@@ -66,6 +66,5 @@ return {
     end
 
     vim.keymap.set("n", "<Leader>wi", spawn_mkdnflow_window, { noremap = true, silent = true })
-
-    end,
+  end,
 }

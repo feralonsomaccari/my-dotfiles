@@ -11,7 +11,6 @@ return {
   },
   build = "go install github.com/lotusirous/gostdsym/stdsym@latest",
   cmd = { "GoDoc" },
-  opts = {},
   config = function()
     local godoc = require("godoc")
 
@@ -35,12 +34,8 @@ return {
       },
       picker = {
         type = "telescope",
-        native = {},
-        telescope = {},
-        snacks = {},
-        mini = {},
-        fzf_lua = {},
       },
     })
   end,
 }
+

@@ -8,7 +8,7 @@ local function focus_preview(prompt_bufnr)
   vim.keymap.set("n", "<C-i>", function()
     vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
   end, { buffer = bufnr })
-vim.keymap.set("n", "<D-i>", function()
+  vim.keymap.set("n", "<D-i>", function()
     vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
   end, { buffer = bufnr })
 

@@ -28,11 +28,11 @@ return {
       lspconfig.gopls.setup({ capabilities = capabilities })
 
       vim.diagnostic.config({
-        virtual_text = true, -- Show errors and warnings as virtual text next to code
-        signs = true,      -- Show signs (icons) in the gutter
+        virtual_text = true,     -- Show errors and warnings as virtual text next to code
+        signs = true,            -- Show signs (icons) in the gutter
         update_in_insert = true, -- Update diagnostics while typing
-        underline = true,  -- Underline errors and warnings
-        severity_sort = true, -- Sort diagnostics by severity
+        underline = true,        -- Underline errors and warnings
+        severity_sort = true,    -- Sort diagnostics by severity
       })
 
       local hover = vim.lsp.buf.hover

@@ -4,7 +4,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "jay-babu/mason-null-ls.nvim",
-    "nvimtools/none-ls-extras.nvim",  -- Add the extras plugin
+    "nvimtools/none-ls-extras.nvim",
   },
   config = function()
     local mason_null_ls = require("mason-null-ls")
@@ -13,24 +13,19 @@ return {
 
     mason_null_ls.setup({
       ensure_installed = {
-        "prettier", -- prettier formatter
-        "eslint_d", -- js linter
+        "prettier",
+        "eslint_d",
       },
     })
 
     local formatting = null_ls.builtins.formatting
-    -- local diagnostics = null_ls.builtins.diagnostics
-    -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
     null_ls.setup({
       root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git", "package.json"),
       sources = {
-        require("none-ls.diagnostics.eslint_d"),  -- Correct eslint_d source
-        formatting.prettier.with({
-          extra_filetypes = { "svelte" },
-        }),  -- js/ts formatter
-        formatting.isort,
+        require("none-ls.diagnostics.eslint_d"),
+        formatting.prettier,
       },
     })
   end,
 }
+

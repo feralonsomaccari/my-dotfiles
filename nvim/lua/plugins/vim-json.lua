@@ -1,1 +1,0 @@
-return {{'elzr/vim-json'}}
