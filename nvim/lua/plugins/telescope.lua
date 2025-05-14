@@ -37,6 +37,15 @@ return {
             n = {
               ["<C-i>"] = focus_preview,
               ["<D-i>"] = focus_preview,
+              ["<C-k>"] = function(prompt_bufnr)
+                local actions = require("telescope.actions")
+                for _ = 1, 5 do actions.move_selection_previous(prompt_bufnr) end
+              end,
+              ["<C-j>"] = function(prompt_bufnr)
+                local actions = require("telescope.actions")
+                for _ = 1, 5 do actions.move_selection_next(prompt_bufnr) end
+              end
+
             },
           },
           file_ignore_patterns = { ".git/", "node_modules/", "%.o", "%.a", "%.out",

@@ -1,6 +1,7 @@
 [keyboard]
 bindings = [
   { key = "C", mods = "Command", chars = "\u0003" },
+  { key = "I", mods = "Command", chars = "\u0009" },
 
   # Backspace Key Bindings
   { key = "Back", mods = "Control", chars = "\u0017" },
