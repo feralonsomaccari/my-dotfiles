@@ -45,6 +45,7 @@ bindings = [
 
 [font]
   size = 16.0
+  normal = { family = "Hack Nerd Font Mono", style = "Regular" }
 
 [window]
   option_as_alt = "Both"
