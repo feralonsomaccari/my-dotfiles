@@ -1,31 +1,31 @@
 return {
   "nvimtools/none-ls.nvim",
-  lazy = true,
-  event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "jay-babu/mason-null-ls.nvim",
     "nvimtools/none-ls-extras.nvim",
   },
   config = function()
-    local mason_null_ls = require("mason-null-ls")
     local null_ls = require("null-ls")
-    local null_ls_utils = require("null-ls.utils")
+    local utils = require("null-ls.utils")
 
-    mason_null_ls.setup({
-      ensure_installed = {
-        "prettier",
-        "eslint_d",
-      },
-    })
+    local root_dir = utils.root_pattern("stylua.toml", "package.json", ".git")
 
-    local formatting = null_ls.builtins.formatting
     null_ls.setup({
-      root_dir = null_ls_utils.root_pattern(".null-ls-root", "Makefile", ".git", "package.json"),
+      root_dir = root_dir,
       sources = {
-        require("none-ls.diagnostics.eslint_d"),
-        formatting.prettier,
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.clang_format,
+        null_ls.builtins.formatting.prettierd.with({
+          extra_args = {
+            "--single-quote",
+            "--jsx-single-quote",
+            "--trailing-comma=es5",
+            "--arrow-parens=avoid",
+            "--tab-width=2",
+          },
+        }),
       },
     })
+
+    vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})
   end,
 }
-

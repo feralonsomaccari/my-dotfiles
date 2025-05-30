@@ -33,6 +33,15 @@ return {
     config = function()
       require("telescope").setup({
         defaults = {
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+          },
           layout_config = {
             preview_cutoff = 1, -- ensures preview is always shown
           },
