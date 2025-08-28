@@ -13,7 +13,7 @@ return {
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = mainColor })
 
     -- Cursor and LineNr
-    vim.api.nvim_set_hl(0, 'LineNr', { fg = mainColor })
+    -- vim.api.nvim_set_hl(0, 'LineNr', { fg = mainColor })
     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = grayColor })
 
     -- Highlight for Floats Windows
@@ -40,8 +40,8 @@ return {
     vim.api.nvim_set_hl(0, 'NeoTreeFileName', { fg = mainLightColor })
     vim.api.nvim_set_hl(0, 'NeoTreeRootName', { bold = false, italic = false, fg = mainLightColor })
     vim.api.nvim_set_hl(0, 'NeoTreeDirectoryName', { fg = mainLightColor })
-    vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = mainLightColor }) -- White icons
+    -- vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = mainLightColor }) -- White icons
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = mainLightColor }) -- White folder names
-    vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = mainLightColor })      -- Change all file icon colors
+    -- vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = mainLightColor })      -- Change all file icon colors
   end
 }

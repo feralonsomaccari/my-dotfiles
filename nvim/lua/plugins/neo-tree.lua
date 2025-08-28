@@ -25,7 +25,7 @@ return {
       default_component_configs = {
         icon = {
           enabled = true,
-          provider = function(icon, node, state)
+          provider = function(icon, node)
             if node.type == "file" or node.type == "terminal" then
               local success, web_devicons = pcall(require, "nvim-web-devicons")
               if success then

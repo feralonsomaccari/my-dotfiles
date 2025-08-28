@@ -154,11 +154,16 @@ vim.api.nvim_set_keymap('x', 'G', 'G$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'G', 'G$', { noremap = true, silent = true })
 
 -- Column mode to ctrl+q
-vim.api.nvim_set_keymap('v', '<C-q>', '<C-w><C-v>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<D-q>', 'ggVG', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<C-q>', '<C-w><C-v>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<D-q>', '<C-w><C-v>', { noremap = true, silent = true })
 
 -- Improves Esc to also remove highlighting on search
 vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>:noh<CR>', { noremap = true, silent = true })
+
+-- Custom regex to clean objects quotes and values
+vim.api.nvim_set_keymap('v', '<leader>ck', [[:s/"\(\w\+\)":/\1:/g<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>cl', [[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]], { noremap = true, silent = true })
+
 
 -- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
 vim.keymap.set("n", "`", function()
@@ -200,6 +205,7 @@ end, { noremap = true, silent = true })
 #                CUSTOM FUNCTIONS                #
 ##################################################
 ]]
+
 
 -- Define a function to handle the cursor position
 local function handle_search_cursor()
