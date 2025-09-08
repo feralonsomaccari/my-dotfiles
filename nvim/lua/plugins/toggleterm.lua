@@ -1,5 +1,5 @@
 return {
-  'akinsho/toggleterm.nvim',
+  "akinsho/toggleterm.nvim",
   version = "*",
   config = function()
     local width = math.floor(vim.o.columns * 0.80)
@@ -12,10 +12,10 @@ return {
         height = height,
         col = (vim.o.columns - width) / 2,
         row = (vim.o.lines - height) / 2,
-        relative = 'editor',
+        relative = "editor",
         border = "curved",
       },
-      start_in_insert = true
+      start_in_insert = true,
     })
 
     local Terminal = require("toggleterm.terminal").Terminal
@@ -42,17 +42,27 @@ return {
     end
 
     vim.api.nvim_set_keymap("n", "<F12>", "<cmd>lua _toggle_term()<CR>", { noremap = true, silent = true })
-    vim.api.nvim_set_keymap("t", "<F12>", "<C-\\><C-n><cmd>lua _toggle_term()<CR>",
-      { noremap = true, silent = true })
+    vim.api.nvim_set_keymap(
+      "t",
+      "<F12>",
+      "<C-\\><C-n><cmd>lua _toggle_term()<CR>",
+      { noremap = true, silent = true }
+    )
 
-    vim.api.nvim_set_keymap("t", "<F2>", "<C-\\><C-n><cmd>lua _close_jira_term()<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap(
+      "t",
+      "<F2>",
+      "<C-\\><C-n><cmd>lua _close_jira_term()<CR>",
+      { noremap = true, silent = true }
+    )
 
     -- Call jira-cli with my current sprint
-    vim.keymap.set("n", "<F2>", function()
-      jira_term = Terminal:new({
-        cmd = "jira sprint list --current -a$(jira me)",
-      })
-      jira_term:toggle()
-    end, { noremap = true, silent = true })
-  end
+    -- vim.keymap.set("n", "<F2>", function()
+    --   jira_term = Terminal:new({
+    --     cmd = "jira sprint list --current -a$(jira me)",
+    --   })
+    --   jira_term:toggle()
+    -- end, { noremap = true, silent = true })
+
+  end,
 }

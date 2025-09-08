@@ -38,4 +38,3 @@ return {
     vim.keymap.set("n", "<leader>d", gitsigns.preview_hunk, {})
   end,
 }
-

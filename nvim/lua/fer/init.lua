@@ -3,7 +3,6 @@
 #                OPTIONS CONFIGURATION           #
 ##################################################
 ]]
-
 vim.g.mapleader = " "
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
@@ -26,9 +25,10 @@ vim.opt.swapfile = false
 vim.opt.incsearch = true  -- Enable incremental search
 vim.opt.cursorline = true -- Highlight the current line
 vim.o.cursorlineopt = "number"
-
 vim.g.loaded_netrwPlugin = 1 -- Disable netrw
 vim.g.loaded_netrw = 1       -- Disable netrw
+vim.o.laststatus = 2
+vim.o.statusline = " %{substitute(system('git rev-parse --abbrev-ref HEAD'), '\\n', '', '')} %f %h%m%r"
 
 
 --[[
@@ -36,7 +36,6 @@ vim.g.loaded_netrw = 1       -- Disable netrw
 #                CUSTOM COMMANDS                 #
 ##################################################
 ]]
-
 -- Stop auto-comenting in a new line
 vim.cmd [[autocmd FileType * set formatoptions-=ro]]
 
@@ -76,8 +75,6 @@ end
 #                MAPPINGS                        #
 ##################################################
 ]]
-
-
 -- Map Ctrl+E to go to neo tree
 vim.api.nvim_set_keymap('n', '<C-S-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-e>', ':lua ToggleTreeFocus()<CR>', { noremap = true, silent = true })
@@ -130,13 +127,12 @@ vim.api.nvim_set_keymap('n', '<C-]>', ':lua GoToNextBuffer()<CR>', { noremap = t
 -- Move line up with Shift+K or Shift+J
 vim.api.nvim_set_keymap('n', 'K', ':m .-2<CR>==', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'J', ':m .+1<CR>==', { noremap = true, silent = true })
-
 -- Move selected block (Visual mode) with Shift+K or Shift+J
 vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- Delete word backwards
-vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'dw', "db", { noremap = true, silent = true })
 
 -- Cuts without saving to clipboard
 vim.api.nvim_set_keymap('x', 'p', '"_dP', { noremap = true, silent = true })
@@ -147,7 +143,7 @@ vim.api.nvim_set_keymap('n', '<leader>fn', ":let @/ = expand('<cword>')<CR>n", {
 vim.api.nvim_set_keymap('v', '<leader>fn', 'y/<C-R><C-O>0<CR>', { noremap = true, silent = true })
 
 -- Make shift+V to select from the cursor to the end of the line
-vim.api.nvim_set_keymap('n', 'V', '0v$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'V', '0v$h', { noremap = true, silent = true })
 
 -- Modify shift+G to also put the cursor in last character in viusual mode and normal mode
 vim.api.nvim_set_keymap('x', 'G', 'G$', { noremap = true, silent = true })
@@ -163,6 +159,10 @@ vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>:noh<CR>', { noremap = true, silent 
 -- Custom regex to clean objects quotes and values
 vim.api.nvim_set_keymap('v', '<leader>ck', [[:s/"\(\w\+\)":/\1:/g<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>cl', [[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]], { noremap = true, silent = true })
+
+-- Disable keybidings that I don't use and are annoying
+vim.api.nvim_set_keymap('i', '<C-j>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-k>', '<Nop>', { noremap = true, silent = true })
 
 
 -- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
@@ -205,8 +205,6 @@ end, { noremap = true, silent = true })
 #                CUSTOM FUNCTIONS                #
 ##################################################
 ]]
-
-
 -- Define a function to handle the cursor position
 local function handle_search_cursor()
   -- If the search register is empty (no match), keep the cursor where it is
@@ -215,7 +213,6 @@ local function handle_search_cursor()
     return
   end
 end
-
 
 -- Create an autocommand that listens to search events
 vim.api.nvim_create_autocmd("CmdlineChanged", {

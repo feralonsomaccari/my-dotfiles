@@ -1,5 +1,5 @@
 return {
-  'ruifm/gitlinker.nvim',
+  "ruifm/gitlinker.nvim",
   dependencies = 'nvim-lua/plenary.nvim',
   config = function()
     local gitlinker = require('gitlinker')

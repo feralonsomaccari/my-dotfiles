@@ -52,17 +52,34 @@ return {
               ["<D-i>"] = focus_preview,
               ["<C-k>"] = function(prompt_bufnr)
                 local actions = require("telescope.actions")
-                for _ = 1, 5 do actions.move_selection_previous(prompt_bufnr) end
+                for _ = 1, 5 do
+                  actions.move_selection_previous(prompt_bufnr)
+                end
               end,
               ["<C-j>"] = function(prompt_bufnr)
                 local actions = require("telescope.actions")
-                for _ = 1, 5 do actions.move_selection_next(prompt_bufnr) end
-              end
-
+                for _ = 1, 5 do
+                  actions.move_selection_next(prompt_bufnr)
+                end
+              end,
             },
           },
-          file_ignore_patterns = { ".git/", "node_modules/", "%.o", "%.a", "%.out",
-            "%.pdf", "%.mkv", "%.mp4", "%.zip", ".cache", "dist", "coverage", "es5", "%.snap" }
+          file_ignore_patterns = {
+            ".git/",
+            "node_modules/",
+            "%.o",
+            "%.a",
+            "%.out",
+            "%.pdf",
+            "%.mkv",
+            "%.mp4",
+            "%.zip",
+            ".cache",
+            "dist",
+            "coverage",
+            "es5",
+            "%.snap",
+          },
         },
         preview = {
           filesize_limit = 0.5555,
