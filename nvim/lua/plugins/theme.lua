@@ -12,11 +12,6 @@ return {
     vim.api.nvim_set_hl(0, "VertSplit", { fg = mainColor })
     vim.api.nvim_set_hl(0, "WinSeparator", { fg = mainColor })
 
-    vim.api.nvim_set_hl(0, "LspDiagnosticsSign", { fg = "#FFFF00", bg = "#2E2E2E" })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextWarning", { fg = "blue", bg = "#2E2E2E" })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextInformation", { fg = "red", bg = "#2E2E2E" })
-    vim.api.nvim_set_hl(0, "LspDiagnosticsVirtualTextHint", { fg = "green", bg = "#2E2E2E" })
-
     -- Cursor and LineNr
     -- vim.api.nvim_set_hl(0, 'LineNr', { fg = mainColor })
     vim.api.nvim_set_hl(0, "CursorLineNr", { fg = grayColor })
