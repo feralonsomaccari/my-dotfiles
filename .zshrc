@@ -48,6 +48,9 @@ export NOTES_DIR=/Users/feralonsomaccari/Projects/notes
 export JIRA_AUTH_TYPE=''
 export PAGER='nvim +Man!'
 
+# Yalcmate
+export YALCMATE_PACKAGES_DIR=$W_PACKAGES_DIR
+
 # Define a function to search and cd to a root project
 search_projects() {
   local project_dirs=("$W_PROJECTS_DIR" "$P_PROJECTS_DIR")  # Add more directories
@@ -67,8 +70,8 @@ alias v='nvim'
 alias nvimconf='cd ~/dotfiles/nvim'
 alias nvimconfig='cd ~/dotfiles/nvim'
 alias ipconfig="ipconfig getifaddr en0"
-alias jira="jira sprint list --current -a$(jira me)"
 alias vimdiff='nvim -d'
+alias opensprint="jira sprint list --current -a$(jira me)"
 alias openrep='fertools openrep'
 alias openpr='fertools openpr'
 alias openpaas='fertools openpaas'
