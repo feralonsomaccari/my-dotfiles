@@ -159,10 +159,6 @@ vim.api.nvim_set_keymap("v", "<leader>cs", ":'<,'>sort<CR>", { noremap = true, s
 -- Disable keybidings that I don't use and are annoying
 vim.api.nvim_set_keymap("i", "<C-j>", "<Nop>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<C-k>", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "K", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "J", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "K", "<Nop>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "J", "<Nop>", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<C-z>', '<Nop>', { noremap = true, silent = true })
 
 -- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
