@@ -82,13 +82,9 @@ vim.api.nvim_set_keymap('n', '<C-e>', ':lua ToggleTreeFocus()<CR>', { noremap = 
 -- Remap Ctrl+J to behave like Ctrl+D (half-page down) in normal and visual modes
 vim.api.nvim_set_keymap('n', '<C-j>', '5j', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-j>', '5j', { noremap = true, silent = true })
-
 -- Remap Ctrl+K to behave like Ctrl+U (half-page up) in normal and visual modes
 vim.api.nvim_set_keymap('n', '<C-k>', '5k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-k>', '5k', { noremap = true, silent = true })
-
--- Map Ctrl+C in visual mode to yank to clipboard
-vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
 -- Delete words with CTRL + backspace
 vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true })
@@ -96,7 +92,6 @@ vim.api.nvim_set_keymap('i', '<C-BS>', '<C-w>', { noremap = true, silent = true 
 -- Delete to blackhole register
 vim.api.nvim_set_keymap('n', 'dd', '"_dd', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'd', '"_d', { noremap = true, silent = true })
-
 -- Delete in normal register
 vim.api.nvim_set_keymap('n', 'dc', 'dd', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'dc', '_d', { noremap = true, silent = true })
@@ -111,9 +106,6 @@ vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>', { noremap = true, silent = true }
 
 -- Change search function to prevent getting moved back after pressing ESC
 vim.api.nvim_set_keymap('c', '<ESC>', '<CR>', { noremap = true, silent = true })
-
--- Disable Ctrl + Z in normal mode
-vim.api.nvim_set_keymap('n', '<C-z>', '<Nop>', { noremap = true, silent = true })
 
 -- Map gg to gg0 to move the cursor to the beginning (first character) of the file intead of top
 vim.api.nvim_set_keymap('n', 'gg', 'gg0', { noremap = true, silent = true })
@@ -142,7 +134,7 @@ vim.api.nvim_set_keymap('x', 'y', 'ygv<Esc>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>fn', ":let @/ = expand('<cword>')<CR>n", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>fn', 'y/<C-R><C-O>0<CR>', { noremap = true, silent = true })
 
--- Make shift+V to select from the cursor to the end of the line
+-- Make shift+V to select from the cursor to the end of the line without creating a new line when cutting
 vim.api.nvim_set_keymap('n', 'V', '0v$h', { noremap = true, silent = true })
 
 -- Modify shift+G to also put the cursor in last character in viusual mode and normal mode
@@ -150,20 +142,28 @@ vim.api.nvim_set_keymap('x', 'G', 'G$', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'G', 'G$', { noremap = true, silent = true })
 
 -- Column mode to ctrl+q
+
+vim.api.nvim_set_keymap('v', '<C-v>', '<C-w><C-v>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<D-v>', '<C-w><C-v>', { noremap = true, silent = true })
+
 -- vim.api.nvim_set_keymap('v', '<C-q>', '<C-w><C-v>', { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<D-q>', '<C-w><C-v>', { noremap = true, silent = true })
 
 -- Improves Esc to also remove highlighting on search
 vim.api.nvim_set_keymap('n', '<Esc>', '<Esc>:noh<CR>', { noremap = true, silent = true })
 
--- Custom regex to clean objects quotes and values
-vim.api.nvim_set_keymap('v', '<leader>ck', [[:s/"\(\w\+\)":/\1:/g<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>cl', [[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]], { noremap = true, silent = true })
+-- Custom utils
+vim.api.nvim_set_keymap('v', '<leader>ck', [[:s/"\(\w\+\)":/\1:/g<CR>]], { noremap = true, silent = true }) -- Custom regex to clean quotes marks quotes from objects
+vim.api.nvim_set_keymap('v', '<leader>cl', [[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]], { noremap = true, silent = true }) -- Clean values from objects
 
 -- Disable keybidings that I don't use and are annoying
 vim.api.nvim_set_keymap('i', '<C-j>', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-k>', '<Nop>', { noremap = true, silent = true })
-
+vim.api.nvim_set_keymap('n', 'K', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'J', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'K', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'J', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<C-z>', '<Nop>', { noremap = true, silent = true })
 
 -- Switch booleans, lowercase/uppercase and increase/decrease numbers (also works with css units like 30px or 2rem)
 vim.keymap.set("n", "`", function()
@@ -199,6 +199,7 @@ vim.keymap.set("n", "~", function()
     vim.cmd("normal! ciw" .. capitalized_word)
   end
 end, { noremap = true, silent = true })
+
 
 --[[
 ##################################################
