@@ -39,15 +39,15 @@ return {
         },
         git_status = {
           symbols = {
-            added = "✔",
-            modified = "✎",
-            deleted = "×",
-            renamed = "➜",
-            untracked = "*",
+            added = "",
+            modified = "",
+            deleted = "",
+            renamed = "",
+            untracked = "",
             ignored = "",
-            unstaged = "∪",
-            staged = "✓",
-            conflict = "⚔",
+            unstaged = "",
+            staged = "",
+            conflict = "",
           },
         },
         diagnostics = {

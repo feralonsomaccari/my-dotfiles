@@ -153,12 +153,8 @@ vim.api.nvim_set_keymap("n", "<Esc>", "<Esc>:noh<CR>", { noremap = true, silent 
 
 -- Custom utils
 vim.api.nvim_set_keymap("v", "<leader>ck", [[:s/"\(\w\+\)":/\1:/g<CR>]], { noremap = true, silent = true }) -- Custom regex to clean quotes marks quotes from objects
-vim.api.nvim_set_keymap(
-	"v",
-	"<leader>cl",
-	[[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]],
-	{ noremap = true, silent = true }
-) -- Clean values from objects
+vim.api.nvim_set_keymap("v", "<leader>cl", [[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]], { noremap = true, silent = true } ) -- Clean values from objects
+vim.api.nvim_set_keymap("v", "<leader>cs", ":'<,'>sort<CR>", { noremap = true, silent = true } ) -- Clean values from objects
 
 -- Disable keybidings that I don't use and are annoying
 vim.api.nvim_set_keymap("i", "<C-j>", "<Nop>", { noremap = true, silent = true })
