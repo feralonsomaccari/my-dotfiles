@@ -51,6 +51,10 @@ export PAGER='nvim +Man!'
 # Yalcmate
 export YALCMATE_PACKAGES_DIR=$W_PACKAGES_DIR
 
+# my-cli-tools
+export W_PAAS_DIR=$W_PAAS_DIR
+export W_JIRA_DIR=$W_JIRA_DIR
+
 # Define a function to search and cd to a root project
 search_projects() {
   local project_dirs=("$W_PROJECTS_DIR" "$P_PROJECTS_DIR")  # Add more directories
