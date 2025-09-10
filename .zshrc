@@ -9,6 +9,10 @@ touch ~/.hushlogin
 # Disable shared history between tabs
 unsetopt share_history
 
+# Disable menu style autocompletion (collides with amazon Q)
+unsetopt menucomplete
+unsetopt auto_menu
+
 # Optional, improves history handling (you can add these if you want better history management):
 setopt inc_append_history  # Save commands as they are executed
 setopt append_history      # Append to the history file instead of overwriting it
