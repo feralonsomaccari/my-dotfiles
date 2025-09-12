@@ -21,6 +21,13 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
 
+      local hover = vim.lsp.buf.hover
+      vim.lsp.buf.hover = function()
+        hover({
+          border = "rounded",
+        })
+      end
+
       lspconfig.ts_ls.setup({ capabilities = capabilities })
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.cssls.setup({ capabilities = capabilities })
@@ -35,24 +42,20 @@ return {
         severity_sort = true, -- Sort diagnostics by severity
       })
 
-      local hover = vim.lsp.buf.hover
-      vim.lsp.buf.hover = function()
-        hover({
-          border = "rounded",
-        })
-      end
+      vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, {})
+      vim.keymap.set("n", "<leader>j", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "<leader>r", vim.lsp.buf.references, {})
+      vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, {})
+      vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, {})
+
+      vim.keymap.set("n", "<leader>e", function()
+        vim.diagnostic.open_float(nil, { border = "rounded" })
+      end, {})
       vim.keymap.set("n", "<leader>h", function()
-        -- Trigger hover
         vim.lsp.buf.hover()
         -- Close the preview window automatically after selection
         vim.cmd("autocmd CursorMoved,BufHidden <buffer> ++once silent! pclose!")
       end, {})
-      vim.keymap.set("n", "<leader>e", function()
-        vim.diagnostic.open_float(nil, { border = "rounded" })
-      end, {})
-      vim.keymap.set("n", "<leader>j", vim.lsp.buf.definition, {})
-      vim.keymap.set({ "n", "v" }, "<leader>.", vim.lsp.buf.code_action, {})
-      vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, {})
     end,
   },
 }
