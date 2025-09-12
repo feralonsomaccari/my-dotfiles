@@ -7,7 +7,20 @@ return {
 
     diffview.setup({
       view = {
-        default = { winbar_info = false },
+        default = { 
+          winbar_info = false,
+          disable_diagnostics = true,
+        },
+        merge_tool = {
+          -- layout = "diff1_plain",
+          disable_diagnostics = true,
+          winbar_info = false,
+        },
+        file_history = {
+          layout = "diff2_horizontal",
+          disable_diagnostics = true,
+          winbar_info = false,
+        },
       },
       file_panel = {
         listing_style = "list",
@@ -30,8 +43,9 @@ return {
     })
 
     vim.keymap.set("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { noremap = true, silent = true })
-    vim.keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true })
     vim.keymap.set("n", "<leader>dh", "<cmd>DiffviewFileHistory %<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>dr", "<cmd>DiffviewFileHistory<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { noremap = true, silent = true })
     vim.keymap.set("n", "<C-w>[", "<C-w>h", { noremap = true, silent = true })
     vim.keymap.set("n", "<C-w>]", "<C-w>l", { noremap = true, silent = true })
   end,
