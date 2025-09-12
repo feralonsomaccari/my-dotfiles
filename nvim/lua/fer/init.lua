@@ -28,10 +28,10 @@ vim.o.cursorlineopt = "number"
 vim.g.loaded_netrwPlugin = 1 -- Disable netrw
 vim.g.loaded_netrw = 1 -- Disable netrw
 vim.o.laststatus = 2
-vim.o.statusline = " %{substitute(system('git rev-parse --abbrev-ref HEAD'), '\\n', '', '')}"
-	.. " %f %h%m%r"
+vim.o.statusline = " [%{substitute(system('git rev-parse --abbrev-ref HEAD'), '\\n', '', '')}]"
+  .. " %{fnamemodify(getcwd(), ':t') . '/' . expand('%:p:.')} %h%m%r"
 	.. " %="
-	.. " Last modified: %{substitute(system('git log -1 --date=format:%d/%m/%Y --format=\"%ad %an\" -- ' .. expand('%')), '\\n', '', '')} "
+	.. " %#LineNr#Last modified: %{substitute(system('git log -1 --date=format:%d/%m/%Y --format=\"%ad %an\" -- ' .. expand('%')), '\\n', '', '')} "
 vim.opt.diffopt =
 	{ "internal", "filler", "closeoff", "context:12", "algorithm:histogram", "linematch:200", "indent-heuristic" }
 
