@@ -9,10 +9,6 @@ touch ~/.hushlogin
 # Disable shared history between tabs
 unsetopt share_history
 
-# Disable menu style autocompletion (collides with amazon Q)
-unsetopt menucomplete
-unsetopt auto_menu
-
 # Optional, improves history handling (you can add these if you want better history management):
 setopt inc_append_history  # Save commands as they are executed
 setopt append_history      # Append to the history file instead of overwriting it
@@ -20,19 +16,18 @@ setopt append_history      # Append to the history file instead of overwriting i
  # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
  # Initialization code that may require console input (password prompts, [y/n]
  # confirmations, etc.) must go above this block; everything else may go below.
- if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
- fi
-
-# Powerlevel10k theme
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
- [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 # NVM (move nvm loading above instant prompt)
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# Powerlevel10k theme
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+ [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Homebrew
 export PATH=/opt/homebrew/bin:$PATH
@@ -99,17 +94,19 @@ plugins=(zsh-autosuggestions)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#Tmux Initialization
-if [ -t 1 ] && [ -z "$TMUX" ]; then
-  tmux new-session -n Q \; \
-    new-window -n W \; \
-    new-window -n E \; \
-    new-window -n A \; \
-    new-window -n S \; \
-    new-window -n D \; \
-    select-window -t 0
+# Tmux Initialization
+if command -v tmux >/dev/null 2>&1; then
+  if [ -z "$TMUX" ] && [ -t 1 ]; then
+    tmux attach -t default || tmux new-session -s default -n Q \; \
+      new-window -n W \; \
+      new-window -n E \; \
+      new-window -n A \; \
+      new-window -n S \; \
+      new-window -n D \; \
+      select-window -t 0
+  fi
 fi
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-autoload -U compinit; compinit
+# autoload -U compinit; compinit
 source ~/.fzf-tab/fzf-tab.zsh
