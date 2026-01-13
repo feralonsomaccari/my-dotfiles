@@ -18,9 +18,6 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
-
       local hover = vim.lsp.buf.hover
       vim.lsp.buf.hover = function()
         hover({
@@ -28,12 +25,35 @@ return {
         })
       end
 
-      lspconfig.ts_ls.setup({ capabilities = capabilities })
-      lspconfig.html.setup({ capabilities = capabilities })
-      lspconfig.cssls.setup({ capabilities = capabilities })
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.gopls.setup({ capabilities = capabilities })
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+      vim.lsp.config("ts_ls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.config("html", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.config("cssls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.config("gopls", {
+        capabilities = capabilities,
+      })
+
+      vim.lsp.enable({
+        "ts_ls",
+        "html",
+        "cssls",
+        "lua_ls",
+        "gopls",
+      })
       vim.diagnostic.config({
         virtual_text = true, -- Show errors and warnings as virtual text next to code
         signs = true,        -- Show signs (icons) in the gutter
