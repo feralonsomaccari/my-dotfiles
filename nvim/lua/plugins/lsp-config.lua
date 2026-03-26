@@ -63,7 +63,17 @@ return {
       })
 
       vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, {})
-      vim.keymap.set("n", "<leader>j", vim.lsp.buf.definition, {})
+      vim.keymap.set("n", "<leader>j", function()
+        vim.lsp.buf.definition({
+          on_list = function(options)
+            if options and options.items and #options.items > 0 then
+              local item = options.items[1]
+              vim.cmd("edit " .. item.filename)
+              vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+            end
+          end,
+        })
+      end, {})
       vim.keymap.set("n", "<leader>r", vim.lsp.buf.references, {})
       vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, {})
       vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, {})
