@@ -65,16 +65,6 @@ au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=2
 augroup END
 ]])
 
--- Define a custom function to toggle between Nvim-Tree and file window
-function ToggleTreeFocus()
-	local ft = vim.bo.filetype
-	if ft == "NvimTree" or ft == "neo-tree" then
-		vim.cmd("wincmd l")
-	else
-		vim.cmd("wincmd h")
-	end
-end
-
 --[[
 ##################################################
 #                MAPPINGS                        #

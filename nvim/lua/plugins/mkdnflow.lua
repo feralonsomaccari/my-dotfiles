@@ -2,6 +2,7 @@ return {
   "jakewvincent/mkdnflow.nvim",
   config = function()
     require("mkdnflow").setup({
+      silent = true,
       notes_dir = "~/notes", -- This is the global directory for your notes
       mappings = {
         MkdnNew = { "n", "<Leader>mn" },
