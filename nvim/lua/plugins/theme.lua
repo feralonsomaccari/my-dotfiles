@@ -3,11 +3,11 @@ return {
   config = function()
     vim.cmd("colorscheme gruvbox-material")
 
-    local mainColor = vim.api.nvim_get_hl_by_name("Normal", true).background or "purple"
+    local mainColor = vim.api.nvim_get_hl(0, { name = "Normal" }).bg or "purple"
     local mainLightColor = "#C0C0C0"
-    local grayColor = vim.api.nvim_get_hl_by_name("LineNr", true).foreground or "purple"
-    local cursorColor = vim.api.nvim_get_hl_by_name("CursorLine", true).background or "purple"
-    local methodColor = vim.api.nvim_get_hl_by_name("@keyword", true).foreground or "purple"
+    local grayColor = vim.api.nvim_get_hl(0, { name = "LineNr" }).fg or "purple"
+    local cursorColor = vim.api.nvim_get_hl(0, { name = "CursorLine" }).bg or "purple"
+    local methodColor = vim.api.nvim_get_hl(0, { name = "@keyword" }).fg or "purple"
 
     vim.api.nvim_set_hl(0, "VertSplit", { fg = mainColor })
     vim.api.nvim_set_hl(0, "WinSeparator", { fg = mainColor })

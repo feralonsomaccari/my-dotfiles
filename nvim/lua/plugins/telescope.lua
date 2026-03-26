@@ -5,9 +5,6 @@ local function focus_preview(prompt_bufnr)
   local previewer = picker.previewer
   local bufnr = previewer.state.bufnr or previewer.state.termopen_bufnr
   local winid = previewer.state.winid or vim.fn.win_findbuf(bufnr)[1]
-  vim.keymap.set("n", "<C-i>", function()
-    vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
-  end, { buffer = bufnr })
   vim.keymap.set("n", "<D-i>", function()
     vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
   end, { buffer = bufnr })
@@ -19,17 +16,12 @@ end
 return {
   {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.6",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>p", builtin.find_files, {})
-      vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader>b", builtin.buffers, {})
-    end,
-  },
-  {
-    "nvim-telescope/telescope-ui-select.nvim",
+    tag = "0.1.8",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      "nvim-telescope/telescope-fzy-native.nvim",
+    },
     config = function()
       require("telescope").setup({
         defaults = {
@@ -43,12 +35,11 @@ return {
             "--smart-case",
           },
           layout_config = {
-            preview_cutoff = 1, -- ensures preview is always shown
+            preview_cutoff = 1,
           },
           path_display = { "smart" },
           mappings = {
             n = {
-              ["<C-i>"] = focus_preview,
               ["<D-i>"] = focus_preview,
               ["<C-k>"] = function(prompt_bufnr)
                 local actions = require("telescope.actions")
@@ -97,25 +88,27 @@ return {
           ["ui-select"] = {
             require("telescope.themes").get_dropdown({}),
           },
-        },
-      })
-
-      require("telescope").load_extension("ui-select")
-    end,
-  },
-  {
-    "nvim-telescope/telescope-fzy-native.nvim",
-    run = "make",
-    config = function()
-      require("telescope").setup({
-        extensions = {
           fzy_native = {
             override_generic_sorter = false,
             override_file_sorter = true,
           },
         },
       })
+
+      require("telescope").load_extension("ui-select")
       require("telescope").load_extension("fzy_native")
+
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>p", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>/", builtin.live_grep, {})
+      vim.keymap.set("n", "<leader>b", builtin.buffers, {})
     end,
+  },
+  {
+    "nvim-telescope/telescope-ui-select.nvim",
+  },
+  {
+    "nvim-telescope/telescope-fzy-native.nvim",
+    build = "make",
   },
 }

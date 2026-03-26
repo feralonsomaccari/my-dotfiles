@@ -3,7 +3,7 @@ return {
 	branch = "v3.x",
 	dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
 	config = function()
-		vim.keymap.set("n", "<C-e>", ":Neotree toggle<CR>", { noremap = true, silent = true })
+		vim.keymap.set("n", "<C-e>", ":Neotree toggle reveal<CR>", { noremap = true, silent = true })
 		vim.keymap.set("n", "<leader>fr", ":Neotree reveal<CR>:Neotree focus<CR>", { noremap = true, silent = true })
 
 		require("neo-tree").setup({

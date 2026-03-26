@@ -80,9 +80,6 @@ end
 #                MAPPINGS                        #
 ##################################################
 ]]
--- Map Ctrl+E to go to neo tree
-vim.api.nvim_set_keymap("n", "<C-S-e>", ":lua ToggleTreeFocus()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-e>", ":lua ToggleTreeFocus()<CR>", { noremap = true, silent = true })
 
 -- Remap Ctrl+J to behave like Ctrl+D (half-page down) in normal and visual modes
 vim.api.nvim_set_keymap("n", "<C-j>", "5j", { noremap = true, silent = true })

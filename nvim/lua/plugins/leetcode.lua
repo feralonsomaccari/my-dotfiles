@@ -7,7 +7,6 @@ return {
     "MunifTanjim/nui.nvim",
   },
   opts = {
-lang = "go"
-    -- configuration goes here
+    lang = "go",
   },
 }
