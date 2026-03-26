@@ -84,7 +84,7 @@ alias ls='ls --color=auto'
 bindkey '^H' backward-kill-word
 bindkey '^J' history-search-forward
 bindkey '^K' history-search-backward
-plugins=(zsh-autosuggestions)
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
