@@ -10,7 +10,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "tsserver", "html", "cssls", "go", "gopls" },
+        ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "gopls" },
       })
     end,
   },
@@ -57,7 +57,7 @@ return {
       vim.diagnostic.config({
         virtual_text = true, -- Show errors and warnings as virtual text next to code
         signs = true,        -- Show signs (icons) in the gutter
-        update_in_insert = true, -- Update diagnostics while typing
+        update_in_insert = false, -- Update diagnostics after leaving insert mode
         underline = true,    -- Underline errors and warnings
         severity_sort = true, -- Sort diagnostics by severity
       })

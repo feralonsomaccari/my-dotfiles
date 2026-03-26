@@ -27,8 +27,9 @@ vim.opt.cursorline = true -- Highlight the current line
 vim.o.cursorlineopt = "number"
 vim.g.loaded_netrwPlugin = 1 -- Disable netrw
 vim.g.loaded_netrw = 1 -- Disable netrw
+vim.o.showtabline = 0 -- Disable tabs
 vim.o.laststatus = 2
-vim.o.statusline = " [%{substitute(system('git rev-parse --abbrev-ref HEAD'), '\\n', '', '')}]"
+vim.o.statusline = "  [%{substitute(system('git rev-parse --abbrev-ref HEAD'), '\\n', '', '')}]"
   .. " %{fnamemodify(getcwd(), ':t') . '/' . expand('%:p:.')} %h%m%r"
 	.. " %="
 	.. " %#LineNr#Last modified: %{substitute(system('git log -1 --date=format:%d/%m/%Y --format=\"%ad %an\" -- ' .. expand('%')), '\\n', '', '')} "
@@ -154,7 +155,7 @@ vim.api.nvim_set_keymap("n", "<Esc>", "<Esc>:noh<CR>", { noremap = true, silent 
 -- Custom utils
 vim.api.nvim_set_keymap("v", "<leader>ck", [[:s/"\(\w\+\)":/\1:/g<CR>]], { noremap = true, silent = true }) -- Custom regex to clean quotes marks quotes from objects
 vim.api.nvim_set_keymap("v", "<leader>cl", [[:s/\("\?\w\+"\?\):\s*[^,}\n]\+/\1:/g<CR>]], { noremap = true, silent = true } ) -- Clean values from objects
-vim.api.nvim_set_keymap("v", "<leader>cs", ":'<,'>sort<CR>", { noremap = true, silent = true } ) -- Clean values from objects
+vim.api.nvim_set_keymap("v", "<leader>cs", ":'<,'>sort<CR>", { noremap = true, silent = true } ) -- Sort props alphabetically
 
 -- Disable keybidings that I don't use and are annoying
 vim.api.nvim_set_keymap("i", "<C-j>", "<Nop>", { noremap = true, silent = true })
@@ -289,89 +290,89 @@ function GoToNextBuffer()
 	end
 end
 
--- Function to fetch Jira issue asynchronously
-vim.g.jira_content = ""
-vim.g.jira_popup_win = nil
-
-function FetchJiraIssue()
-	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
-	local issue = branch:gsub("\n", "")
-
-	-- Check if 'jira' command is available
-	if vim.fn.executable("jira") == 1 then
-		vim.fn.jobstart({ "jira", "issue", "view", issue, "--comments", "20" }, {
-			stdout_buffered = true,
-			on_stdout = function(_, data)
-				vim.g.jira_content = table.concat(data, "\n")
-			end,
-			on_stderr = function(_, data)
-				-- print("Error fetching Jira issue: " .. table.concat(data, "\n"))
-			end,
-		})
-	else
-		print("jira-cli is not installed.")
-	end
-end
-
-vim.cmd([[autocmd VimEnter * lua FetchJiraIssue()]])
-
-vim.api.nvim_set_keymap("n", "<F1>", ":lua ToggleJiraPopup()<CR>", {
-	noremap = true,
-	silent = true,
-})
-
-function ToggleJiraPopup()
-	if vim.g.jira_popup_win and vim.api.nvim_win_is_valid(vim.g.jira_popup_win) then
-		vim.api.nvim_win_close(vim.g.jira_popup_win, true)
-		vim.g.jira_popup_win = nil
-		return
-	end
-	OpenJiraInPopup(vim.g.jira_content)
-end
-
-function OpenJiraInPopup(content)
-	local buf = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_buf_set_lines(buf, 0, -1, true, vim.split(content, "\n"))
-	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-	vim.api.nvim_buf_set_option(buf, "modifiable", true)
-	vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
-
-	local width = math.floor(vim.o.columns * 0.8)
-	local height = math.floor(vim.o.lines * 0.8)
-	local opts = {
-		relative = "editor",
-		width = width,
-		height = height,
-		col = (vim.o.columns - width) / 2,
-		row = (vim.o.lines - height) / 2,
-		border = "rounded",
-	}
-
-	vim.g.jira_popup_win = vim.api.nvim_open_win(buf, true, opts)
-
-	local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-	while #lines > 0 and vim.trim(lines[#lines]) == "" do
-		lines[#lines] = nil
-	end
-	vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
-
-	vim.api.nvim_chan_send(vim.api.nvim_open_term(buf, {}), table.concat(lines, "\r\n"))
-
-	vim.api.nvim_command("highlight MyHighlightGroup1 guifg=#FF5A5A guibg=#2D2D2D")
-	vim.api.nvim_command("syntax match MyHighlightGroup1 /`[^`]*`/")
-
-	vim.api.nvim_command("highlight MyHighlightGroup2 guibg=#5050FF gui=bold")
-	vim.api.nvim_command("syntax match MyHighlightGroup2 /#.*$/")
-
-	vim.api.nvim_command("highlight MyHighlightGroup3 gui=bold")
-	vim.api.nvim_command("syntax match MyHighlightGroup3 /\\*\\*[^*]*\\*\\*/")
-
-	vim.api.nvim_command("highlight MyHighlightGroup5 gui=bold")
-	vim.api.nvim_command("syntax match MyHighlightGroup5 /^.*•.*$/")
-
-	vim.api.nvim_command("highlight MyHighlightGroup4 guifg=yellow guibg=blue gui=bold")
-	vim.api.nvim_command("syntax match MyHighlightGroup4 /Latest comment/")
-
-	vim.api.nvim_command("highlight MyHighlightGroup6 guifg=#009767")
-	vim.api.nvim_command("syntax match MyHighlightGroup6 /\\(http\\|https\\):\\/\\/\\S\\+/")
-end
+-- -- Function to fetch Jira issue asynchronously
+-- vim.g.jira_content = ""
+-- vim.g.jira_popup_win = nil
+--
+-- function FetchJiraIssue()
+-- 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+-- 	local issue = branch:gsub("\n", "")
+--
+-- 	-- Check if 'jira' command is available
+-- 	if vim.fn.executable("jira") == 1 then
+-- 		vim.fn.jobstart({ "jira", "issue", "view", issue, "--comments", "20" }, {
+-- 			stdout_buffered = true,
+-- 			on_stdout = function(_, data)
+-- 				vim.g.jira_content = table.concat(data, "\n")
+-- 			end,
+-- 			on_stderr = function(_, data)
+-- 				-- print("Error fetching Jira issue: " .. table.concat(data, "\n"))
+-- 			end,
+-- 		})
+-- 	else
+-- 		print("jira-cli is not installed.")
+-- 	end
+-- end
+--
+-- vim.cmd([[autocmd VimEnter * lua FetchJiraIssue()]])
+--
+-- vim.api.nvim_set_keymap("n", "<F1>", ":lua ToggleJiraPopup()<CR>", {
+-- 	noremap = true,
+-- 	silent = true,
+-- })
+--
+-- function ToggleJiraPopup()
+-- 	if vim.g.jira_popup_win and vim.api.nvim_win_is_valid(vim.g.jira_popup_win) then
+-- 		vim.api.nvim_win_close(vim.g.jira_popup_win, true)
+-- 		vim.g.jira_popup_win = nil
+-- 		return
+-- 	end
+-- 	OpenJiraInPopup(vim.g.jira_content)
+-- end
+--
+-- function OpenJiraInPopup(content)
+-- 	local buf = vim.api.nvim_create_buf(false, true)
+-- 	vim.api.nvim_buf_set_lines(buf, 0, -1, true, vim.split(content, "\n"))
+-- 	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
+-- 	vim.api.nvim_buf_set_option(buf, "modifiable", true)
+-- 	vim.api.nvim_buf_set_option(buf, "filetype", "markdown")
+--
+-- 	local width = math.floor(vim.o.columns * 0.8)
+-- 	local height = math.floor(vim.o.lines * 0.8)
+-- 	local opts = {
+-- 		relative = "editor",
+-- 		width = width,
+-- 		height = height,
+-- 		col = (vim.o.columns - width) / 2,
+-- 		row = (vim.o.lines - height) / 2,
+-- 		border = "rounded",
+-- 	}
+--
+-- 	vim.g.jira_popup_win = vim.api.nvim_open_win(buf, true, opts)
+--
+-- 	local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+-- 	while #lines > 0 and vim.trim(lines[#lines]) == "" do
+-- 		lines[#lines] = nil
+-- 	end
+-- 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+--
+-- 	vim.api.nvim_chan_send(vim.api.nvim_open_term(buf, {}), table.concat(lines, "\r\n"))
+--
+-- 	vim.api.nvim_command("highlight MyHighlightGroup1 guifg=#FF5A5A guibg=#2D2D2D")
+-- 	vim.api.nvim_command("syntax match MyHighlightGroup1 /`[^`]*`/")
+--
+-- 	vim.api.nvim_command("highlight MyHighlightGroup2 guibg=#5050FF gui=bold")
+-- 	vim.api.nvim_command("syntax match MyHighlightGroup2 /#.*$/")
+--
+-- 	vim.api.nvim_command("highlight MyHighlightGroup3 gui=bold")
+-- 	vim.api.nvim_command("syntax match MyHighlightGroup3 /\\*\\*[^*]*\\*\\*/")
+--
+-- 	vim.api.nvim_command("highlight MyHighlightGroup5 gui=bold")
+-- 	vim.api.nvim_command("syntax match MyHighlightGroup5 /^.*•.*$/")
+--
+-- 	vim.api.nvim_command("highlight MyHighlightGroup4 guifg=yellow guibg=blue gui=bold")
+-- 	vim.api.nvim_command("syntax match MyHighlightGroup4 /Latest comment/")
+--
+-- 	vim.api.nvim_command("highlight MyHighlightGroup6 guifg=#009767")
+-- 	vim.api.nvim_command("syntax match MyHighlightGroup6 /\\(http\\|https\\):\\/\\/\\S\\+/")
+-- end
