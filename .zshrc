@@ -96,7 +96,7 @@ if command -v tmux >/dev/null 2>&1; then
       new-window -n E \; \
       new-window -n A \; \
       new-window -n S \; \
-      new-window -n D \; \
+      new-window -n CL -c ~/Documents/dj \; \
       select-window -t 0
   fi
 fi
@@ -107,3 +107,14 @@ source ~/.fzf-tab/fzf-tab.zsh
 
 # # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+
+# bun completions
+[ -s "/Users/feralonsomaccari/.bun/_bun" ] && source "/Users/feralonsomaccari/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
