@@ -11,6 +11,9 @@ return {
   },
   build = "go install github.com/lotusirous/gostdsym/stdsym@latest",
   cmd = { "GoDoc" },
+  keys = {
+    { "<leader>go", "<cmd>GoDoc<cr>", desc = "Go Doc" },
+  },
   config = function()
     local godoc = require("godoc")
 

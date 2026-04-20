@@ -61,7 +61,7 @@ bindings = [
   vi_mode_style = "Block"
 
 [colors.primary]
-  background = "#282828"
+  background = "#262626"
   # foreground = "#d4be98"
 
 [colors.normal]
