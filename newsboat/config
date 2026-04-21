@@ -23,24 +23,25 @@ bind-key x pb-delete
 # Show read feeds
 show-read-feeds no
 
-# Color customizations
-color listnormal cyan default
-color listfocus black yellow standout bold
-color listnormal_unread blue default
-color listfocus_unread yellow default bold
-color info red black bold
-color article white default bold
+# Color customizations (Gruvbox Material — matches alacritty palette)
+color background   default default
+color listnormal   default default
+color listfocus    default default
+color listnormal_unread blue default bold
+color listfocus_unread  yellow default bold
+color info         yellow black   bold
+color article      default default
 
 # Highlights
-highlight all "---.*---" yellow
-highlight feedlist ".*(0/0))" black
+highlight all "---.*---" yellow default
+highlight feedlist ".*(0/0))" black default
 highlight article "(^Feed:.*|^Title:.*|^Author:.*)" blue default bold
 highlight article "(^Link:.*|^Date:.*)" default default
 highlight article "https?://[^ ]+" green default
-highlight article "^(Title):.*$" blue default
+highlight article "^(Title):.*$" blue default bold
 highlight article "\\[[0-9][0-9]*\\]" magenta default bold
-highlight article "\\[image\\ [0-9]+\\]" green default bold
-highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
+highlight article "\\[image\\ [0-9]+\\]" cyan default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" cyan default bold
 highlight article ":.*\\(link\\)$" cyan default
 highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
