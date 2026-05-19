@@ -12,13 +12,14 @@
 
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
-  local grey='242'
-  local red='#ea6962'
-  local yellow='#d8a657'
-  local blue='#7daea3'
-  local magenta='#d3869b'
-  local cyan='#a9b665'
-  local white='#d4be98'
+  source "${HOME}/dotfiles/colors/palette.sh"
+  local grey=$COLOR_GREY
+  local red=$COLOR_RED
+  local yellow=$COLOR_YELLOW
+  local blue=$COLOR_BLUE
+  local magenta=$COLOR_MAGENTA
+  local cyan=$COLOR_CYAN
+  local white=$COLOR_FG
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs prompt_char)
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time virtualenv context)

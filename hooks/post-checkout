@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Regenerate alacritty colors if the palette differs between the previous and new ref.
+set -eu
+
+# post-checkout is called with: prev_head, new_head, branch_flag
+prev="$1"
+new="$2"
+branch_flag="$3"
+
+# Only act on branch checkouts (flag = 1), not file checkouts (flag = 0).
+[ "$branch_flag" = "1" ] || exit 0
+
+DOTFILES="$(cd "$(dirname "$0")/../.." && pwd)"
+
+changed="$(git -C "$DOTFILES" diff-tree -r --name-only --no-commit-id "$prev" "$new")"
+if echo "$changed" | grep -q '^colors/palette\.sh$'; then
+  "$DOTFILES/colors/generate-alacritty-colors.sh"
+fi

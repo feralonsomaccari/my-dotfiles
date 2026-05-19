@@ -3,47 +3,49 @@ return {
   config = function()
     vim.cmd("colorscheme gruvbox-material")
 
-    -- local mainColor = vim.api.nvim_get_hl(0, { name = "Normal" }).bg or "purple"
-    local mainColor = "#262626"
-    local mainLightColor = "#C0C0C0"
-    local grayColor = vim.api.nvim_get_hl(0, { name = "LineNr" }).fg or "purple"
-    local cursorColor = vim.api.nvim_get_hl(0, { name = "CursorLine" }).bg or "purple"
-    local methodColor = vim.api.nvim_get_hl(0, { name = "@keyword" }).fg or "purple"
+    local palette = {}
+    for line in io.lines(vim.fn.expand("~/dotfiles/colors/palette.sh")) do
+      local k, v = line:match('^export%s+(COLOR_%w+)="(#%x+)"')
+      if k then palette[k] = v end
+    end
 
-    vim.api.nvim_set_hl(0, "Normal", { bg = "#262626", fg = "#ddc7a1" })
+    local mainColor = palette.COLOR_BG
+    local mainLightColor = palette.COLOR_WHITE
+    local fgColor = palette.COLOR_FG
+
+    vim.api.nvim_set_hl(0, "Normal", { bg = mainColor, fg = fgColor })
     vim.api.nvim_set_hl(0, "VertSplit", { fg = mainColor })
     vim.api.nvim_set_hl(0, "WinSeparator", { fg = mainColor })
 
-    -- Cursor and LineNr
-    -- vim.api.nvim_set_hl(0, 'LineNr', { fg = mainColor })
-    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = grayColor })
+    -- Sign column blends into buffer (no off-color gutter strip)
+    vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+
+    -- Cursor line number: matches LineNr (tracks any future LineNr change)
+    vim.api.nvim_set_hl(0, "CursorLineNr", { link = "LineNr" })
 
     -- Highlight for Floats Windows
     vim.api.nvim_set_hl(0, "FloatBorder", { link = "TelescopeBorder" })
     vim.api.nvim_set_hl(0, "NormalFloat", { fg = "NONE", bg = mainColor })
-    -- vim.api.nvim_set_hl(0, 'FloatTitle', {fg = "NONE", bg = "NONE"})
 
-    -- File name in Lualine
-    vim.api.nvim_set_hl(0, "LualineFilename", { fg = methodColor, bg = "NONE" })
+    -- Statusline: active and inactive both blend
     vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+    vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
 
-    -- Git colors
-    vim.api.nvim_set_hl(0, "Comment", { fg = grayColor })
+    -- Git / comment colors (all track LineNr — change LineNr to recolor everything)
+    vim.api.nvim_set_hl(0, "Comment", { link = "LineNr" })
     vim.api.nvim_set_hl(0, "@comment", { link = "Comment" })
     vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { link = "Comment" })
 
     -- Neo-tree colors
     vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = mainColor })
     vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { bg = mainColor })
-    vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = cursorColor })
-    vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = grayColor })
-    vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { bg = "NONE", fg = grayColor })
+    vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { link = "CursorLine" })
+    vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { link = "LineNr" })
+    vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { link = "LineNr" })
     vim.api.nvim_set_hl(0, "NeoTreeDotfile", { fg = mainLightColor })
     vim.api.nvim_set_hl(0, "NeoTreeFileName", { fg = mainLightColor })
+    -- bold/italic = false defends against gruvbox-material making the root name bold
     vim.api.nvim_set_hl(0, "NeoTreeRootName", { bold = false, italic = false, fg = mainLightColor })
     vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = mainLightColor })
-    -- vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = mainLightColor }) -- White icons
-    vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = mainLightColor }) -- White folder names
-    -- vim.api.nvim_set_hl(0, "NeoTreeFileIcon", { fg = mainLightColor })      -- Change all file icon colors
   end,
 }

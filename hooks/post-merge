@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Regenerate alacritty colors if the palette changed in this merge.
+set -eu
+
+DOTFILES="$(cd "$(dirname "$0")/../.." && pwd)"
+
+changed="$(git -C "$DOTFILES" diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+if echo "$changed" | grep -q '^colors/palette\.sh$'; then
+  "$DOTFILES/colors/generate-alacritty-colors.sh"
+fi
