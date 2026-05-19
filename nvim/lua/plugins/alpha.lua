@@ -10,6 +10,71 @@ return {
     dashboard.nvim_web_devicons.enabled = false
     dashboard.section.mru.val = { { type = "padding", val = 0 } }
     dashboard.section.header.val = {}
+    dashboard.section.top_buttons.val = {}
+    dashboard.section.bottom_buttons.val = {}
+
+    -- Replace "MRU <full path>" title with the project (cwd) name as ASCII art
+    local font = {
+      ["a"] = { " ▄▀█ ", " █▀█ ", "     " },
+      ["b"] = { " █▄▄ ", " █▄█ ", "     " },
+      ["c"] = { " █▀▀ ", " █▄▄ ", "     " },
+      ["d"] = { " █▀▄ ", " █▄▀ ", "     " },
+      ["e"] = { " █▀▀ ", " ██▄ ", "     " },
+      ["f"] = { " █▀▀ ", " █▀  ", "     " },
+      ["g"] = { " █▀▀ ", " █▄█ ", "     " },
+      ["h"] = { " █ █ ", " █▀█ ", "     " },
+      ["i"] = { " █ ", " █ ", "   " },
+      ["j"] = { "   █ ", " █▄█ ", "     " },
+      ["k"] = { " █▄▀ ", " █ █ ", "     " },
+      ["l"] = { " █   ", " █▄▄ ", "     " },
+      ["m"] = { " █▀▄▀█ ", " █ ▀ █ ", "       " },
+      ["n"] = { " █▄ █ ", " █ ▀█ ", "      " },
+      ["o"] = { " █▀█ ", " █▄█ ", "     " },
+      ["p"] = { " █▀█ ", " █▀  ", "     " },
+      ["q"] = { " █▀█ ", " ▀▀█ ", "     " },
+      ["r"] = { " █▀█ ", " █▀▄ ", "     " },
+      ["s"] = { " █▀ ", " ▄█ ", "    " },
+      ["t"] = { " ▀█▀ ", "  █  ", "     " },
+      ["u"] = { " █ █ ", " █▄█ ", "     " },
+      ["v"] = { " █ █ ", " ▀▄▀ ", "     " },
+      ["w"] = { " █ █ █ ", " ▀▄▀▄▀ ", "       " },
+      ["x"] = { " ▀▄▀ ", " █ █ ", "     " },
+      ["y"] = { " █▄█ ", "  █  ", "     " },
+      ["z"] = { " ▀▀█ ", " █▄▄ ", "     " },
+      ["0"] = { " █▀█ ", " █▄█ ", "     " },
+      ["1"] = { " ▄█ ", "  █ ", "    " },
+      ["2"] = { " ▀█ ", " █▄ ", "    " },
+      ["3"] = { " ▀█ ", " ▄█ ", "    " },
+      ["4"] = { " █▄█ ", "   █ ", "     " },
+      ["5"] = { " █▀ ", " ▄█ ", "    " },
+      ["6"] = { " █▄ ", " █▄█ ", "     " },
+      ["7"] = { " ▀█ ", "  █ ", "    " },
+      ["8"] = { " █▀█ ", " █▀█ ", "     " },
+      ["9"] = { " █▀█ ", "  ▄█ ", "     " },
+      ["-"] = { "     ", " ▄▄▄ ", "     " },
+      ["_"] = { "     ", " ▄▄▄ ", "     " },
+      ["."] = { "   ", " █ ", "   " },
+      [" "] = { "   ", "   ", "   " },
+    }
+
+    local function ascii_art(text)
+      text = text:lower()
+      local lines = { "", "", "" }
+      for i = 1, #text do
+        local ch = text:sub(i, i)
+        local glyph = font[ch] or font[" "]
+        for row = 1, 3 do
+          lines[row] = lines[row] .. glyph[row]
+        end
+      end
+      return lines
+    end
+
+    dashboard.section.mru_cwd.val[2] = {
+      type = "text",
+      val = ascii_art(vim.fn.fnamemodify(vim.fn.getcwd(), ":t")),
+      opts = { hl = "Constant", shrink_margin = false, position = "left" },
+    }
 
     alpha.setup(dashboard.opts)
 
