@@ -13,5 +13,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+vim.filetype.add({ extension = { MD = "markdown", MARKDOWN = "markdown", mkd = "markdown" } })
+
 require("fer")
 require("lazy").setup("plugins")
