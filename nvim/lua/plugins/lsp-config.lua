@@ -1,7 +1,7 @@
 return {
   {
     "williamboman/mason.nvim",
-    lazy = false,
+    cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUninstallAll", "MasonLog", "MasonUpdate" },
     config = function()
       require("mason").setup()
     end,
@@ -55,7 +55,13 @@ return {
         "gopls",
       })
       vim.diagnostic.config({
-        virtual_text = true, -- Show errors and warnings as virtual text next to code
+        virtual_text = function(_, bufnr)
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+          if ok and stats and stats.size > 100 * 1024 then
+            return false
+          end
+          return { spacing = 4, prefix = "●" }
+        end,
         signs = true,        -- Show signs (icons) in the gutter
         update_in_insert = false, -- Update diagnostics after leaving insert mode
         underline = true,    -- Underline errors and warnings

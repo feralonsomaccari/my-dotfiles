@@ -30,8 +30,6 @@ return {
           vim.bo[bufnr].swapfile = false
           vim.bo[bufnr].undofile = false
           vim.opt_local.foldenable = false
-          vim.bo[bufnr].syntax = ""
-          vim.treesitter.stop(bufnr)
         end,
       },
       keymaps = {

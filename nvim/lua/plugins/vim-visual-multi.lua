@@ -1,6 +1,10 @@
 return {
   "mg979/vim-visual-multi",
-  lazy = false,
   name = "vim-visual-multi",
-  priority = 1000,
+  keys = {
+    { "<C-n>", mode = { "n", "v" } },
+    { "<C-Up>", mode = { "n", "v" } },
+    { "<C-Down>", mode = { "n", "v" } },
+    { "\\\\", mode = { "n", "v" } },
+  },
 }

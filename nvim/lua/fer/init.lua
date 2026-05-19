@@ -17,7 +17,9 @@ vim.opt.termguicolors = true
 vim.o.signcolumn = "yes" -- keep "space" for git sign lines
 vim.o.ignorecase = true -- Ignore case in searches
 vim.o.smartcase = true -- Use case sensitivity when uppercase letters are used in the search pattern
-vim.opt.clipboard:append("unnamedplus") -- Enable system clipboard support
+vim.schedule(function()
+	vim.opt.clipboard:append("unnamedplus") -- Enable system clipboard support (lazy to skip startup probe)
+end)
 vim.opt.wildignore:append({ "*/node_modules/*" })
 vim.o.cmdheight = 0 -- Hide the command line
 vim.opt.fillchars = "eob: "
@@ -29,10 +31,41 @@ vim.g.loaded_netrwPlugin = 1 -- Disable netrw
 vim.g.loaded_netrw = 1 -- Disable netrw
 vim.o.showtabline = 0 -- Disable tabs
 vim.o.laststatus = 2
-vim.o.statusline = "  [%{substitute(system('git rev-parse --abbrev-ref HEAD'), '\\n', '', '')}]"
-  .. " %{fnamemodify(getcwd(), ':t') . '/' . expand('%:p:.')} %h%m%r"
+vim.o.statusline = "  [%{get(b:,'gitsigns_head','')}]"
+	.. " %{fnamemodify(getcwd(), ':t') . '/' . expand('%:p:.')} %h%m%r"
 	.. " %="
-	.. " %#LineNr#Last modified: %{substitute(system('git log -1 --date=format:%d/%m/%Y --format=\"%ad %an\" -- ' .. expand('%')), '\\n', '', '')} "
+	.. " %#LineNr#%{get(b:,'statusline_last_modified','')} "
+
+-- Cache `git log -1` per buffer to avoid shelling out on every redraw.
+local function update_last_modified(bufnr)
+	bufnr = bufnr or vim.api.nvim_get_current_buf()
+	local file = vim.api.nvim_buf_get_name(bufnr)
+	if file == "" or not vim.bo[bufnr].buflisted then
+		return
+	end
+	vim.fn.jobstart(
+		{ "git", "log", "-1", "--date=format:%d/%m/%Y", "--format=Last modified: %ad %an", "--", file },
+		{
+			stdout_buffered = true,
+			on_stdout = function(_, data)
+				if not vim.api.nvim_buf_is_valid(bufnr) then
+					return
+				end
+				local line = (data and data[1]) or ""
+				vim.b[bufnr].statusline_last_modified = line
+				vim.schedule(function()
+					vim.cmd("redrawstatus")
+				end)
+			end,
+		}
+	)
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+	callback = function(args)
+		update_last_modified(args.buf)
+	end,
+})
 vim.opt.diffopt =
 	{ "internal", "filler", "closeoff", "context:12", "algorithm:histogram", "linematch:200", "indent-heuristic" }
 
@@ -104,7 +137,7 @@ vim.api.nvim_set_keymap("n", "gg", "gg0", { noremap = true, silent = true })
 
 -- Chabge CTRL + [ and ] as history
 vim.api.nvim_set_keymap("n", "<C-h>", ":lua GoToPrevBuffer()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-l>", ":lua GoToPrevBuffer()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<C-l>", ":lua GoToNextBuffer()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-[>", ":lua GoToPrevBuffer()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-]>", ":lua GoToNextBuffer()<CR>", { noremap = true, silent = true })
 

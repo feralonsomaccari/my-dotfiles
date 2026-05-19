@@ -5,12 +5,18 @@ local function focus_preview(prompt_bufnr)
 	local previewer = picker.previewer
 	local bufnr = previewer.state.bufnr or previewer.state.termopen_bufnr
 	local winid = previewer.state.winid or vim.fn.win_findbuf(bufnr)[1]
-	vim.keymap.set("n", "<D-i>", function()
+	local back_to_prompt = function()
 		vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", prompt_win))
-	end, { buffer = bufnr })
+	end
+	local open_from_preview = function()
+		vim.api.nvim_set_current_win(prompt_win)
+		require("telescope.actions").select_default(prompt_bufnr)
+	end
+	vim.keymap.set("n", "<D-i>", back_to_prompt, { buffer = bufnr })
+	vim.keymap.set("n", "<C-w>[", back_to_prompt, { buffer = bufnr })
+	vim.keymap.set("n", "gf", open_from_preview, { buffer = bufnr })
 
 	vim.cmd(string.format("noautocmd lua vim.api.nvim_set_current_win(%s)", winid))
-	-- api.nvim_set_current_win(winid)
 end
 
 local live_multigrep = function(opts)
@@ -80,13 +86,23 @@ return {
 						"--column",
 						"--smart-case",
 					},
+					layout_strategy = "horizontal",
 					layout_config = {
+						width = 0.95,
+						height = 0.9,
 						preview_cutoff = 1,
+						horizontal = {
+							preview_width = 0.6,
+						},
 					},
 					path_display = { "smart" },
 					mappings = {
+						i = {
+							["<C-w>]"] = focus_preview,
+						},
 						n = {
 							["<D-i>"] = focus_preview,
+							["<C-w>]"] = focus_preview,
 							["<C-k>"] = function(prompt_bufnr)
 								local actions = require("telescope.actions")
 								for _ = 1, 5 do
@@ -120,7 +136,7 @@ return {
 				},
 				preview = {
 					filesize_limit = 0.5555,
-					treesitter = true,
+					treesitter = false,
 				},
 				pickers = {
 					find_files = {

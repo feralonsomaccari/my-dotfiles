@@ -2,7 +2,7 @@ return {
   "RRethy/vim-illuminate",
   config = function()
     require('illuminate').configure({
-      providers = { 'lsp', 'treesitter', 'regex' },
+      providers = { 'lsp', 'treesitter' },
       delay = 100,
       filetypes_denylist = { 'dirbuf', 'dirvish', 'fugitive' },
       under_cursor = true,

@@ -1,5 +1,7 @@
 return {
   "jakewvincent/mkdnflow.nvim",
+  ft = "markdown",
+  keys = { "<Leader>wi", "<Leader>mn", "<Leader>mf", "<Leader>nl" },
   config = function()
     require("mkdnflow").setup({
       silent = true,
