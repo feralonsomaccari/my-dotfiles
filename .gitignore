@@ -1,2 +1,9 @@
 .zshrc_secrets
 .DS_Store
+
+# Generated from colors/palette.sh — do not commit
+alacritty/colors.toml
+
+*_secrets
+*.local
+*.private
