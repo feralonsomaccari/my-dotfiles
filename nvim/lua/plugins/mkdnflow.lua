@@ -5,7 +5,7 @@ return {
   config = function()
     require("mkdnflow").setup({
       silent = true,
-      notes_dir = "~/notes", -- This is the global directory for your notes
+      root_tell = "README.md", -- find the notes root by walking up until README.md is seen
       mappings = {
         MkdnNew = { "n", "<Leader>mn" },
         MkdnFind = { "n", "<Leader>mf" },
