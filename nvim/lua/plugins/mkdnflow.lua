@@ -5,7 +5,13 @@ return {
   config = function()
     require("mkdnflow").setup({
       silent = true,
-      root_tell = "README.md", -- find the notes root by walking up until README.md is seen
+      perspective = {
+        priority = "root",
+        fallback = "current",
+        root_tell = ".notes-root",
+        nvim_wd_heel = false,
+        update = false,
+      },
       mappings = {
         MkdnNew = { "n", "<Leader>mn" },
         MkdnFind = { "n", "<Leader>mf" },
