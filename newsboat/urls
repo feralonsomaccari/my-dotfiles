@@ -1,9 +1,18 @@
-https://go.dev/blog/feed.atom
+# Query feeds (grouped views — virtual feeds aggregating tagged articles)
+"query:Dev:tags # \"dev\""
+"query:History:tags # \"history\""
+"query:Gaming:tags # \"gaming\""
+"query:Podcasts:tags # \"podcast\""
+"query:Articles:tags # \"article\""
 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw "~ThePrimeTime" "(YouTube)"
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0bSvZvJdiZCN4V7kOVwKEg "~Locoser" "(YouTube)"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtPQLL9KACyYzoYXiMl1Nkg "~NachoAoE" "(YouTube)"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCIjGKyrdT4Gja0VLO40RlOw "~Metatron" "(YouTube)"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCZ9jWH_8tJ-Nmaj8dSQdEYA "~Stefan Milo" "(YouTube)"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCBYyJBCtCvgqA4NwtoPMwpQ "~The Wild Project" "(YouTube)"
+# YouTube feeds (hidden from feed list via "!hidden" — still appear in query feeds)
+https://www.youtube.com/feeds/videos.xml?channel_id=UC8ENHE5xdFSwx71u3fDH5Xw "~ThePrimeTime" !hidden dev
+https://www.youtube.com/feeds/videos.xml?channel_id=UCUyeluBRhGPCW4rPe_UvBZQ "~ThePrimeTimeagen" !hidden dev
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0bSvZvJdiZCN4V7kOVwKEg "~Locoser" !hidden gaming
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtPQLL9KACyYzoYXiMl1Nkg "~NachoAoE" !hidden gaming
+https://www.youtube.com/feeds/videos.xml?channel_id=UCIjGKyrdT4Gja0VLO40RlOw "~Metatron" !hidden history
+https://www.youtube.com/feeds/videos.xml?channel_id=UCZ9jWH_8tJ-Nmaj8dSQdEYA "~Stefan Milo" !hidden history
+https://www.youtube.com/feeds/videos.xml?channel_id=UCBYyJBCtCvgqA4NwtoPMwpQ "~The Wild Project" !hidden podcast
 
+# Article feeds
+https://go.dev/blog/feed.atom "~Go Blog" !hidden article
