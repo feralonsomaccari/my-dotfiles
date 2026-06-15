@@ -10,6 +10,13 @@ export DOTFILES="${${:-$(readlink ~/.zshrc 2>/dev/null || echo ~/.zshrc)}:A:h}"
 # (search_projects, the tmux init block, etc.).
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
+# Ensure ~/.local/bin is on PATH (where install.sh symlinks open-url). Guarded so
+# it isn't prepended repeatedly across nested shells.
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
+
 # Stops last login message (only needs to exist; skip the syscall if present)
 [ -f ~/.hushlogin ] || touch ~/.hushlogin
 
