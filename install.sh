@@ -58,7 +58,7 @@ else
   fi
 
   if [ ! -f "$HOME/.zshrc.local" ]; then
-    cp "$DOTFILES/.zshrc.local.example" "$HOME/.zshrc.local"
+    touch "$HOME/.zshrc.local"
     echo "Created $HOME/.zshrc.local — add machine-specific config here"
   fi
 fi
