@@ -14,6 +14,28 @@ Neovim configuration managed with [lazy.nvim](https://github.com/folke/lazy.nvim
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | `neo-tree.lua` | File explorer sidebar. |
 | [nvim-highlight-colors](https://github.com/brenoprata10/nvim-highlight-colors) | `nvim-highlight-colors.lua` | Renders hex/rgb color literals inline. |
 
+### Git
+
+| Plugin | Spec | What it does |
+|---|---|---|
+| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | `gitsigns.lua` | Gutter signs and inline blame for git changes. |
+| [diffview.nvim](https://github.com/sindrets/diffview.nvim) | `diffview.lua` | Side-by-side diff viewer. |
+| [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim) | `gitlinker.lua` | Generate permalinks to lines on the git host. |
+
+### Notes / docs
+
+| Plugin | Spec | What it does |
+|---|---|---|
+| [mkdnflow.nvim](https://github.com/jakewvincent/mkdnflow.nvim) | `mkdnflow.lua` | Markdown notebook workflow (links, lists, todos). |
+| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | `render-markdown.lua` | In-buffer markdown rendering (conceals markers, styles headings and code blocks). |
+
+### Miscellaneous
+
+| Plugin | Spec | What it does |
+|---|---|---|
+| [cellular-automaton.nvim](https://github.com/eandrju/cellular-automaton.nvim) | `cellular.lua` | Runs cellular automata on the current buffer. |
+| [duck.nvim](https://github.com/tamton-aquib/duck.nvim) | `duck.lua` | A duck walks around your screen. |
+
 ### Navigation / motion
 
 | Plugin | Spec | What it does |
@@ -48,26 +70,4 @@ Neovim configuration managed with [lazy.nvim](https://github.com/folke/lazy.nvim
 | [none-ls-extras.nvim](https://github.com/nvimtools/none-ls-extras.nvim) | `none-ls.lua` | Extra sources for none-ls. |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | `treesitter.lua` | Syntax-aware highlighting and parsing. |
 | [godoc.nvim](https://github.com/fredrikaverpil/godoc.nvim) | `godoc.lua` | Go documentation viewer. |
-
-### Git
-
-| Plugin | Spec | What it does |
-|---|---|---|
-| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | `gitsigns.lua` | Gutter signs and inline blame for git changes. |
-| [diffview.nvim](https://github.com/sindrets/diffview.nvim) | `diffview.lua` | Side-by-side diff viewer. |
-| [gitlinker.nvim](https://github.com/ruifm/gitlinker.nvim) | `gitlinker.lua` | Generate permalinks to lines on the git host. |
-
-### Notes / docs
-
-| Plugin | Spec | What it does |
-|---|---|---|
-| [mkdnflow.nvim](https://github.com/jakewvincent/mkdnflow.nvim) | `mkdnflow.lua` | Markdown notebook workflow (links, lists, todos). |
-| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | `render-markdown.lua` | In-buffer markdown rendering (conceals markers, styles headings and code blocks). |
-
-### Miscellaneous
-
-| Plugin | Spec | What it does |
-|---|---|---|
-| [cellular-automaton.nvim](https://github.com/eandrju/cellular-automaton.nvim) | `cellular.lua` | Runs cellular automata on the current buffer. |
-| [duck.nvim](https://github.com/tamton-aquib/duck.nvim) | `duck.lua` | A duck walks around your screen. |
 
