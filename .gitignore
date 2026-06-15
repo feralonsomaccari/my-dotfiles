@@ -7,3 +7,5 @@ alacritty/colors.toml
 *_secrets
 *.local
 *.private
+
+nvim/lazy-lock.json

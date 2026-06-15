@@ -107,7 +107,15 @@ if command -v tmux >/dev/null 2>&1; then
 fi
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-# autoload -U compinit; compinit
+
+# Initialize zsh completions. macOS/Homebrew often runs this implicitly, but
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
 zstyle ':fzf-tab:*' accept-line enter
 # fzf-tab is a manual clone (https://github.com/Aloxaf/fzf-tab); guard so a
 # fresh machine without it doesn't error on every shell startup.
