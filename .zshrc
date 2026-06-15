@@ -10,8 +10,8 @@ export DOTFILES="${${:-$(readlink ~/.zshrc 2>/dev/null || echo ~/.zshrc)}:A:h}"
 # (search_projects, the tmux init block, etc.).
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
-# Stops last login message
-touch ~/.hushlogin
+# Stops last login message (only needs to exist; skip the syscall if present)
+[ -f ~/.hushlogin ] || touch ~/.hushlogin
 
 # Disable shared history between tabs
 unsetopt share_history
@@ -70,7 +70,13 @@ alias v='nvim'
 alias nvimconf='cd "$DOTFILES/nvim"'
 alias nvimconfig='cd "$DOTFILES/nvim"'
 alias vimdiff='nvim -d'
-alias ls='ls --color=auto'
+# Colored ls: GNU ls (Arch, or coreutils' gls on macOS) uses --color=auto;
+# BSD ls (stock macOS) uses -G. Detect by probing the long-opt support.
+if ls --color=auto >/dev/null 2>&1; then
+  alias ls='ls --color=auto'
+else
+  alias ls='ls -G'
+fi
 
 # Keybindings
 bindkey '^H' backward-kill-word

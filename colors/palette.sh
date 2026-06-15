@@ -1,5 +1,5 @@
 # Source-of-truth palette. Edit hexes here; regenerate alacritty colors with
-# `colors/generate-alacritty.sh`. p10k and nvim read this file directly.
+# `colors/generate-alacritty-colors.sh`. p10k and nvim read this file directly.
 export COLOR_BG="#262626"
 export COLOR_FG="#d4be98"
 export COLOR_BLACK="#282828"
