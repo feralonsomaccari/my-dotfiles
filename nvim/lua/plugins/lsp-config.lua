@@ -10,7 +10,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "gopls" },
+        ensure_installed = { "lua_ls", "vtsls", "html", "cssls", "gopls", "eslint" },
       })
     end,
   },
@@ -18,6 +18,28 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
+      -- The eslint LSP nags loudly when a repo's own eslint config fails to
+      -- load (e.g. eslint.config.js require()s a package missing from that
+      -- repo's node_modules, or .eslintrc.js extends a config that isn't
+      -- installed). With cmdheight=0 this triggers a "Press ENTER" prompt.
+      -- The repo is broken, not the editor — drop those messages.
+      local eslint_noise = {
+        "Require stack",
+        "Failed to load config", -- extends a missing shareable config
+        "Cannot find module",
+      }
+      local orig_notify = vim.notify
+      vim.notify = function(msg, level, opts)
+        if type(msg) == "string" then
+          for _, pat in ipairs(eslint_noise) do
+            if msg:find(pat, 1, true) then
+              return
+            end
+          end
+        end
+        return orig_notify(msg, level, opts)
+      end
+
       local hover = vim.lsp.buf.hover
       vim.lsp.buf.hover = function()
         hover({
@@ -27,7 +49,7 @@ return {
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      vim.lsp.config("ts_ls", {
+      vim.lsp.config("vtsls", {
         capabilities = capabilities,
       })
 
@@ -47,12 +69,41 @@ return {
         capabilities = capabilities,
       })
 
+      -- Only attach the eslint server in repos that ship their own eslint
+      -- config. This stops it from walking up the tree and erroring on a
+      -- stray .eslintrc.js (e.g. extends "standard") in some parent dir.
+      vim.lsp.config("eslint", {
+        capabilities = capabilities,
+        root_dir = function(bufnr, on_dir)
+          local cfg = vim.fs.find({
+            ".eslintrc",
+            ".eslintrc.js",
+            ".eslintrc.cjs",
+            ".eslintrc.yaml",
+            ".eslintrc.yml",
+            ".eslintrc.json",
+            "eslint.config.js",
+            "eslint.config.mjs",
+            "eslint.config.cjs",
+            "eslint.config.ts",
+          }, {
+            upward = true,
+            stop = vim.env.HOME,
+            path = vim.api.nvim_buf_get_name(bufnr),
+          })[1]
+          if cfg then
+            on_dir(vim.fs.dirname(cfg))
+          end
+        end,
+      })
+
       vim.lsp.enable({
-        "ts_ls",
+        "vtsls",
         "html",
         "cssls",
         "lua_ls",
         "gopls",
+        "eslint",
       })
       vim.diagnostic.config({
         virtual_text = function(_, bufnr)

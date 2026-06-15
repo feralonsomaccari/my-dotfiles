@@ -1,7 +1,7 @@
 return {
   "jakewvincent/mkdnflow.nvim",
   ft = "markdown",
-  keys = { "<Leader>wi", "<Leader>mn", "<Leader>mf", "<Leader>nl" },
+  keys = { "<Leader>mi", "<Leader>mn", "<Leader>mf", "<Leader>nl" },
   config = function()
     require("mkdnflow").setup({
       silent = true,
@@ -36,7 +36,8 @@ return {
         border = "rounded",
       })
 
-      vim.cmd("edit ~/Documents/notes/README.md")
+      local notes_dir = vim.env.NOTES_DIR or "~/Documents/notes"
+      vim.cmd("edit " .. vim.fn.fnameescape(vim.fn.expand(notes_dir)) .. "/README.md")
 
       local floating_buffers = { buf } -- Start by tracking the first buffer
       local floating_window = win
@@ -75,6 +76,6 @@ return {
       })
     end
 
-    vim.keymap.set("n", "<Leader>wi", spawn_mkdnflow_window, { noremap = true, silent = true })
+    vim.keymap.set("n", "<Leader>mi", spawn_mkdnflow_window, { noremap = true, silent = true })
   end,
 }
