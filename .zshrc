@@ -1,5 +1,3 @@
-# # Kiro CLI pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 [ -f ~/dotfiles/.zshrc_secrets ] && source ~/dotfiles/.zshrc_secrets
 
 # Stops last login message
@@ -40,7 +38,6 @@ export VISUAL="nvim"
 export MANPAGER='nvim +Man!'
 
 export LANG=en_US.UTF-8
-export NOTES_DIR=/Users/feralonsomaccari/Projects/notes
 
 # Jira-cli
 export JIRA_AUTH_TYPE=''
@@ -103,10 +100,8 @@ fi
 
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # autoload -U compinit; compinit
+zstyle ':fzf-tab:*' accept-line enter
 source ~/.fzf-tab/fzf-tab.zsh
-
-# # Kiro CLI post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
 
 # bun completions
 [ -s "/Users/feralonsomaccari/.bun/_bun" ] && source "/Users/feralonsomaccari/.bun/_bun"
@@ -115,6 +110,6 @@ source ~/.fzf-tab/fzf-tab.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+alias claude-work="CLAUDE_CONFIG_DIR=$W_PROJECTS_DIR/.claude-work /Users/feralonsomaccari/.local/bin/claude"
+alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude /Users/feralonsomaccari/.local/bin/claude"
+alias claude="echo 'Use specific commands: claude-work or claude-personal'"
