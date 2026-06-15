@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Portable URL/file opener: `open` on macOS, `xdg-open` on Linux.
+# Used by newsboat and tmux so configs stay OS-agnostic.
+set -eu
+
+if [ "$(uname)" = "Darwin" ]; then
+  exec open "$@"
+else
+  exec xdg-open "$@"
+fi

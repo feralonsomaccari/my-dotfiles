@@ -12,7 +12,7 @@
 
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
-  source "${HOME}/dotfiles/colors/palette.sh"
+  source "${DOTFILES:-$HOME/dotfiles}/colors/palette.sh"
   local grey=$COLOR_GREY
   local red=$COLOR_RED
   local yellow=$COLOR_YELLOW

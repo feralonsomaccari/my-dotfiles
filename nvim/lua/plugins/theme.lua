@@ -4,7 +4,8 @@ return {
     vim.cmd("colorscheme gruvbox-material")
 
     local palette = {}
-    for line in io.lines(vim.fn.expand("~/dotfiles/colors/palette.sh")) do
+    local dotfiles = os.getenv("DOTFILES") or vim.fn.expand("~/dotfiles")
+    for line in io.lines(dotfiles .. "/colors/palette.sh") do
       local k, v = line:match('^export%s+(COLOR_%w+)="(#%x+)"')
       if k then palette[k] = v end
     end

@@ -8,7 +8,7 @@ Neovim configuration managed with [lazy.nvim](https://github.com/folke/lazy.nvim
 
 | Plugin | Spec | What it does |
 |---|---|---|
-| [gruvbox-material](https://github.com/sainnhe/gruvbox-material) | `theme.lua` | Colorscheme. Reads `~/dotfiles/colors/palette.sh` for shared palette. |
+| [gruvbox-material](https://github.com/sainnhe/gruvbox-material) | `theme.lua` | Colorscheme. Reads `$DOTFILES/colors/palette.sh` for shared palette. |
 | [alpha-nvim](https://github.com/goolord/alpha-nvim) | `alpha.lua` | Start screen / dashboard. |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | `alpha.lua` | File-type icons used across UI plugins. |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | `neo-tree.lua` | File explorer sidebar. |

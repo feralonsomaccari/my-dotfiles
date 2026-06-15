@@ -1,4 +1,14 @@
-[ -f ~/dotfiles/.zshrc_secrets ] && source ~/dotfiles/.zshrc_secrets
+# Resolve the dotfiles repo location from ~/.zshrc's own symlink, so nothing
+# depends on the repo being named "dotfiles" or living in a fixed place.
+export DOTFILES="${${:-$(readlink ~/.zshrc 2>/dev/null || echo ~/.zshrc)}:A:h}"
+
+[ -f "$DOTFILES/.zshrc_secrets" ] && source "$DOTFILES/.zshrc_secrets"
+
+# Machine-specific config (Homebrew/PATH, work tooling, bun, claude, project
+# dirs, etc.). Not tracked in the repo — lives only on this machine. Sourced
+# early so its PATH and exported vars are available to everything below
+# (search_projects, the tmux init block, etc.).
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # Stops last login message
 touch ~/.hushlogin
@@ -21,34 +31,25 @@ fi
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-# Powerlevel10k theme
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+# Powerlevel10k theme — source from whichever install location exists
+# (manual clone on macOS, pacman/AUR path on Arch).
+for _p10k in \
+  ~/powerlevel10k/powerlevel10k.zsh-theme \
+  /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme \
+  /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme; do
+  [ -r "$_p10k" ] && { source "$_p10k"; break; }
+done
+unset _p10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Homebrew
-export PATH=/opt/homebrew/bin:$PATH
-export PATH="/opt/homebrew/sbin:$PATH"
-export PATH="/opt/homebrew/Cellar/mongodb-community@4.4/4.4.29/bin:$PATH"
-# export PATH=$PATH:$(go env GOPATH)/bin
 
 # Preferred editor for local and remote sessions
 export EDITOR="nvim"
 export VISUAL="nvim"
 export MANPAGER='nvim +Man!'
-
-export LANG=en_US.UTF-8
-
-# Jira-cli
-export JIRA_AUTH_TYPE=''
 export PAGER='nvim +Man!'
 
-# Yalcmate
-export YALCMATE_PACKAGES_DIR=$W_PACKAGES_DIR
-
-# my-cli-tools
-export W_PAAS_DIR=$W_PAAS_DIR
-export W_JIRA_DIR=$W_JIRA_DIR
+export LANG=en_US.UTF-8
 
 # Define a function to search and cd to a root project
 search_projects() {
@@ -66,15 +67,9 @@ search_projects() {
 # Aliases
 alias fp='search_projects'
 alias v='nvim'
-alias nvimconf='cd ~/dotfiles/nvim'
-alias nvimconfig='cd ~/dotfiles/nvim'
-alias ipconfig="ipconfig getifaddr en0"
+alias nvimconf='cd "$DOTFILES/nvim"'
+alias nvimconfig='cd "$DOTFILES/nvim"'
 alias vimdiff='nvim -d'
-alias opensprint="jira sprint list --current -a$(jira me)"
-alias openrep='fertools openrep'
-alias openpr='fertools openpr'
-alias openpaas='fertools openpaas'
-alias openjira='fertools openjira'
 alias ls='ls --color=auto'
 
 # Keybindings
@@ -93,7 +88,7 @@ if command -v tmux >/dev/null 2>&1; then
       new-window -n E \; \
       new-window -n A \; \
       new-window -n S \; \
-      new-window -n CL -c ~/Documents/dj \; \
+      new-window -n CL -c "${CL_WINDOW_DIR:-$HOME}" \; \
       select-window -t 0
   fi
 fi
@@ -101,15 +96,6 @@ fi
 # fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # autoload -U compinit; compinit
 zstyle ':fzf-tab:*' accept-line enter
-source ~/.fzf-tab/fzf-tab.zsh
-
-# bun completions
-[ -s "/Users/feralonsomaccari/.bun/_bun" ] && source "/Users/feralonsomaccari/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-alias claude-work="CLAUDE_CONFIG_DIR=$W_PROJECTS_DIR/.claude-work /Users/feralonsomaccari/.local/bin/claude"
-alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude /Users/feralonsomaccari/.local/bin/claude"
-alias claude="echo 'Use specific commands: claude-work or claude-personal'"
+# fzf-tab is a manual clone (https://github.com/Aloxaf/fzf-tab); guard so a
+# fresh machine without it doesn't error on every shell startup.
+[ -f ~/.fzf-tab/fzf-tab.zsh ] && source ~/.fzf-tab/fzf-tab.zsh
