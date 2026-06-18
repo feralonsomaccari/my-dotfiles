@@ -68,7 +68,7 @@ search_projects() {
 
 # Wttr wrapper
 weather() {
-    curl -s "wttr.in/${1}?1"
+    curl -s "wttr.in/${1}?${2:-1}"
 }
 
 # Aliases
