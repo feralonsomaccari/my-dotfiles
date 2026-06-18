@@ -4,10 +4,7 @@ export DOTFILES="${${:-$(readlink ~/.zshrc 2>/dev/null || echo ~/.zshrc)}:A:h}"
 
 [ -f "$DOTFILES/.zshrc_secrets" ] && source "$DOTFILES/.zshrc_secrets"
 
-# Machine-specific config (Homebrew/PATH, work tooling, bun, claude, project
-# dirs, etc.). Not tracked in the repo — lives only on this machine. Sourced
-# early so its PATH and exported vars are available to everything below
-# (search_projects, the tmux init block, etc.).
+# Machine-specific config (Homebrew/PATH, work tooling, etc.).
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 # Ensure ~/.local/bin is on PATH (where install.sh symlinks open-url). Guarded so
@@ -20,21 +17,17 @@ esac
 # Stops last login message (only needs to exist; skip the syscall if present)
 [ -f ~/.hushlogin ] || touch ~/.hushlogin
 
-# Disable shared history between tabs
-unsetopt share_history
-
-# Optional, improves history handling (you can add these if you want better history management):
+# History
+unsetopt share_history # Prevents shared history between shells
 setopt inc_append_history  # Save commands as they are executed
 setopt append_history      # Append to the history file instead of overwriting it
 
- # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
- # Initialization code that may require console input (password prompts, [y/n]
- # confirmations, etc.) must go above this block; everything else may go below.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# NVM (move nvm loading above instant prompt)
+# NVM
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
@@ -50,15 +43,17 @@ unset _p10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Preferred editor for local and remote sessions
+# Preferred editor for local and remote sessions conf
 export EDITOR="nvim"
 export VISUAL="nvim"
 export MANPAGER='nvim +Man!'
 export PAGER='nvim +Man!'
 
+
 export LANG=en_US.UTF-8
 
-# Define a function to search and cd to a root project
+
+# Search and cd to a root project
 search_projects() {
   local project_dirs=("$W_PROJECTS_DIR" "$P_PROJECTS_DIR")  # Add more directories
   local project=$(find "${project_dirs[@]}" -maxdepth 1 -mindepth 1 -type d | fzf)
@@ -71,6 +66,11 @@ search_projects() {
   fi
 }
 
+# Wttr wrapper
+weather() {
+    curl -s "wttr.in/${1}?1"
+}
+
 # Aliases
 alias fp='search_projects'
 alias v='nvim'
@@ -78,7 +78,7 @@ alias nvimconf='cd "$DOTFILES/nvim"'
 alias nvimconfig='cd "$DOTFILES/nvim"'
 alias vimdiff='nvim -d'
 # Colored ls: GNU ls (Arch, or coreutils' gls on macOS) uses --color=auto;
-# BSD ls (stock macOS) uses -G. Detect by probing the long-opt support.
+# BSD ls (stock macOS) uses -G.
 if ls --color=auto >/dev/null 2>&1; then
   alias ls='ls --color=auto'
 else
@@ -101,14 +101,12 @@ if command -v tmux >/dev/null 2>&1; then
       new-window -n E \; \
       new-window -n A \; \
       new-window -n S \; \
-      new-window -n CL -c "${CL_WINDOW_DIR:-$HOME}" \; \
+      new-window -n D \; \
       select-window -t 0
   fi
 fi
 
-# fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-
-# Initialize zsh completions. macOS/Homebrew often runs this implicitly, but
+# Initialize zsh completions.
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
   compinit
@@ -117,6 +115,5 @@ else
 fi
 
 zstyle ':fzf-tab:*' accept-line enter
-# fzf-tab is a manual clone (https://github.com/Aloxaf/fzf-tab); guard so a
-# fresh machine without it doesn't error on every shell startup.
 [ -f ~/.fzf-tab/fzf-tab.zsh ] && source ~/.fzf-tab/fzf-tab.zsh
+
